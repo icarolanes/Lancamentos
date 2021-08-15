@@ -1,0 +1,6 @@
+SELECT n.Nnome as navio, atr.ope1, atr.ope2, b.numero as berco, GROUP_CONCAT( DISTINCT(por.descr),' ' ) as poroes, 
+if(plan.porao = 1,plan.total,'0') as porao1, if(plan.porao = 2,plan.total,'0') as porao2, if(plan.porao = 3,plan.total,'0') as porao3, if(plan.porao = 4,plan.total,'0') as porao4, if(plan.porao = 5,plan.total,'0') as porao5, sum(plan.total) as total FROM atracacao atr join navios n on atr.navio = n.id join berco b on atr.berco = b.id join lancamentos lanc on lanc.atracacao = atr.id join armazem por on lanc.armazem = por.id join plano_ope_porao plan on plan.atracacao = atr.id where atr.id = 1 group by atr.id
+
+
+SELECT pope.data_ref as data, lper.abv as periodo, pope.id as popeid, 
+if(lanc.armazem = 1,sum(lanc.liquido),'0') as porao1, if(lanc.armazem = 2,sum(lanc.liquido),'0') as porao2, if(lanc.armazem = 3,sum(lanc.liquido),'0') as porao3, if(lanc.armazem = 4,sum(lanc.liquido),'0') as porao4, if(lanc.armazem = 5,sum(lanc.liquido),'0') as porao5, sum(lanc.liquido) as total from atracacao at left join lancamentos lanc on lanc.atracacao = at.id join periodos_operacao pope on lanc.periodo = pope.id join lista_periodos lper on pope.periodo = lper.id where lanc.tipo = 3 and at.id = 1 group by pope.data_ref,pope.periodo

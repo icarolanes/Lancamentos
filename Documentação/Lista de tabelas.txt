@@ -1,0 +1,179 @@
+Banco de dados: pedras, Tabela: armazem, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+numero 	int(11)		 No
+descr 	varchar(15) 	No
+
+Banco de dados: pedras, Tabela: atracacao, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+situacao 	int(11)	 	No
+navio 	int(11)	 	No 	id do navio
+Natraca 	varchar(10) 	No
+Datracacao 	datetime 	Yes 	NULL
+ope1 	datetime 	Yes 	NULL
+ope2 	datetime 	Yes 	NULL
+Ddesatracacao 	datetime 	Yes 	NULL
+
+Banco de dados: pedras, Tabela: documentos, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+atracacao 	int(11)		 No
+tipo 	int(11)		 No 	tipo de documento 	im/exp (tipo_doc)
+identificacao 	varchar(30) 	 No 	numero/codigo
+empresa 	int(11)		 No 	id da Empresa responsavel(empresas)
+
+Banco de dados: pedras, Tabela: empresas, Propósito: Estrutura da tabela
+Coluna		Tipo 		Nulo 	Predefinido 	 Comentários
+id 			int(11)	 	No
+xCNPJ 		text 		No
+xNome 		varchar(50) No
+fantasia	varchar(20) Yes 	NULL
+ap varchar(20) Yes NULL
+
+Banco de dados: pedras, Tabela: lancamentos, Propósito: Estrutura da tabela
+Coluna	Tipo	Nulo	Predefinido 	Comentários
+id 	int(11)		No
+atracacao 	int(11)		No
+tipo 	int(11) 	No 	recepção / embarque / desembarque / transferencia
+documento 	int(11)		 No 	id do documento de im/exp
+nf 	int(11)		Yes 	NULL 	id da nota fiscal (se tiver)
+transp int(11)		 Yes 	NULL 	id da transportadora (empresas)
+motorista 	int(11) 	Yes 	NULL 	motorista (usar consulta de ultimo lançamento)
+placa 	int(11)		 No 	placa do veiculo de transporta
+carreta1 	int(11)		 Yes 	NULL 	placa do veiculo de transporta
+carreta2 	int(11)	 	Yes 	NULL 	placa do veiculo de transporta
+data 	datetime 	No 		data da movimentação
+periodo 	int(11)	 	No 		período realizado
+tara 	float 	Yes 	NULL 	peso de entrada
+bruto 	float 	Yes 	NULL 	peso de saída
+liquido 	float	 Yes 	NULL 	diferença
+armazem 	int(11)	 	Yes 	NULL 	local de arm ou porão
+usuario 	int(11)		 No
+dlancamento 	timestamp 	No 	current_timestamp()
+
+Banco de dados: pedras, Tabela: lista_grupos, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+nome 	varchar(20) 	No
+
+Banco de dados: pedras, Tabela: lista_paralizacoes, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+pt_br 	varchar(50) 	No
+eng 	varchar(50) 	No
+
+Banco de dados: pedras, Tabela: lista_periodos, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+periodo 	varchar(10) 	No
+abv 	varchar(5) 	No
+ordem 	int(11)	 	No
+
+Banco de dados: pedras, Tabela: navios, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 	No
+Nnome 	varchar(20) 	No
+imo 	int(11)	 	No
+poroes 	int(11)		 No
+
+Banco de dados: pedras, Tabela: nf_ident, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)		 No
+chave 	text 	No
+serie 	int(11)		 No
+tpNF	 int(11)		 No
+dhEmi 	datetime 	No
+emissor 	int(11)	 	No
+qtdvol 	int(11)		 No
+Numeracao_item 	text 	No
+Pbruto 	double 	No
+Pliquido 	double 	No
+vProd 	double 	No
+vNF 	double	 No
+transport 	int(11)		 No
+info_comp_nota 	longtext 	Yes 	NULL
+nNF 	int(11)	 	No
+
+Banco de dados: pedras, Tabela: nf_itens, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)		 No
+cProd 	varchar(20)	 No
+nf_id 	int(11)		 No
+xProd 	text 	No
+infAdProd 	text 	Yes 	NULL
+NCM 	int(11)		 No
+CFOP 	int(11)	 No
+uCom 	varchar(5) 	No
+qCom 	double	 No
+vUnCom 	double 	No
+vProd	 double 	No
+
+Banco de dados: pedras, Tabela: paralizacao_ope, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)	 No
+atracacao 	int(11)	 No
+periodo 	int(11)	 No
+terno 	int(11)	 No
+paralizacao 	int(11)	 No
+par_inicio 	datetime 	No
+par_termino 	datetime 	No
+
+Banco de dados: pedras, Tabela: periodos_operacao, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id 	int(11)		 No
+data_ref 	date 	No
+responsavel 	int(11)		 No
+periodo 	int(11)	 	No
+atracacao 	int(11)		 No
+
+
+
+
+
+//////////////////
+
+Banco de dados: pedras, Tabela: pessoa, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+nome varchar(20) No
+sobrenome varchar(50) No
+cpf bigint(20)	 No
+
+Banco de dados: pedras, Tabela: placas, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+placa varchar(10) No
+tipo int(11)	 No
+
+Banco de dados: pedras, Tabela: tipo_doc, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+identificacao varchar(11) No Abreviatura de
+documento
+descr varchar(30) No descrição de documento
+
+Banco de dados: pedras, Tabela: tipo_lancamento, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+nTipo varchar(20) No
+descrição varchar(30) No
+
+Banco de dados: pedras, Tabela: tipo_placa, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+tipo varchar(11) No
+
+Banco de dados: pedras, Tabela: tipo_usuario, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+tipo varchar(15) No
+descr varchar(30) No
+
+Banco de dados: pedras, Tabela: usuarios, Propósito: Estrutura da tabela
+Coluna	Tipo 	Nulo 	 Predefinido 	 Comentários
+id int(11)	 No
+nome int(11)	 No id_pessoa
+usuario varchar(20) No
+senha varchar(30) No
+tipo int(11)	 No user_tp
