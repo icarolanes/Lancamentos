@@ -50,26 +50,19 @@
           <?php 
 
           $queryu = "SELECT 
-          tpl.nTipo         as tipo,
-          atr.Natraca       as atr,
-          doc.identificacao as documento,
-          em.ap             as responsavel,
-          pes.nome          as motorista,
-          pl.placa          as placa,
-          lanc.documento    as armazem,
-          lanc.data         as data,
-          pope.data_ref    as data_ref,
-          lper.abv          as periodo,
-          lanc.liquido      as liquido
+          lanc.id        as tipo,
+          lanc.id        as atr,
+          lanc.id        as documento,
+          lanc.id        as responsavel,
+          lanc.id        as motorista,
+          lanc.id        as placa,
+          lanc.id        as armazem,
+          lanc.id        as data,
+          lanc.id        as data_ref,
+          lanc.id        as periodo,
+          lanc.id        as liquido
           from lancamentos lanc 
-          join tipo_lancamento tpl     on lanc.tipo       = tpl.id
-          join atracacao atr           on lanc.atracacao  = atr.id
-          join periodos_operacao pope  on lanc.periodo    = pope.id
-          join lista_periodos lper     on pope.periodo    = lper.id
-          join documentos doc          on lanc.documento  = doc.id
-          join empresas em             on doc.empresa     = em.id 
-          join placas pl               on lanc.placa      = pl.id
-          join pessoa pes              on lanc.motorista  = pes.id
+
           ";
 
           $resultado = $con ->prepare($queryu);

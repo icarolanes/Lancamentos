@@ -146,32 +146,26 @@
       </thead>
       <tbody>
         <?php 
+
 // query dos itens a serem mostrados
         $query_lanc = "SELECT 
-        tplan.nTipo as tipo, 
-        doc.identificacao as documento,
-        (select arm1.descr from operacao opera join armazem arm1 on arm1.id =  opera.armazem where opera.id = lanc.operacao) as ori,
-        em.ap as responsavel,
-        nota.nNF as nf,
-        pes.nome as motorista,
-        pl.placa as placa,
-        data,
-        per.data_ref as dope,
-        per_list.periodo as periodo,
-        tara, 
-        bruto, 
-        liquido 
+        lanc.id as tipo,
+        lanc.id as documento,
+        lanc.id as ori,
+        lanc.id as responsavel,
+        lanc.id as nf,
+        lanc.id as motorista,
+        lanc.id as placa,
+        lanc.id as data,
+        lanc.id as dope,
+        lanc.id as periodo,
+        lanc.id as tara,
+        lanc.id as bruto,
+        lanc.id as liquido 
         from lancamentos lanc 
-        join tipo_lancamento tplan on  lanc.tipo = tplan.id 
-        join documentos doc on lanc.documento = doc.id  
-        join empresas em on doc.empresa = em.id 
-        left join nf_ident nota on lanc.nf = nota.id 
-        join placas pl on lanc.placa = pl.id 
-        join pessoa pes on lanc.motorista = pes.id 
-        join periodos_operacao per on lanc.periodo = per.id 
-        join lista_periodos per_list on per.periodo = per_list.id 
         WHERE lanc.atracacao = ".$_GET['n']."
         order by lanc.id";
+
 //query total para contagem de itens
         $query_pag = "SELECT * from lancamentos lanc WHERE lanc.atracacao = ".$_GET['n'];
 //executa a query de contagem
