@@ -3,13 +3,9 @@
         <h1 class="h2">Notas cadastradas</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" onclick="window.location.href='index.php?p=15'" class="btn btn-sm btn-outline-secondary">Cadastrar</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Importar</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
         </div>
       </div>
 
