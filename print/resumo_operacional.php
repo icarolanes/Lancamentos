@@ -19,8 +19,7 @@
       $po = 1;
       $pors = "";
       for ($linhas=0; $linhas < $poroes['poroes'] ; $linhas++) { 
-        $pors .= " (SELECT sum(lanc2.liquido) from lancamentos lanc2 where lanc2.periodo = pope.id and ope.armazem = ".$po.") as porao".$po.",";
-      //$pors .= " if((lanc.armazem = ".$po." ),sum(lanc.liquido),'0') as porao".$po.",";
+        $pors .= " (SELECT sum(lanc2.liquido) from lancamentos lanc2 join operacao ope2 on ope2.id = lanc2.operacao where ope2.periodo = pope.id and ope2.armazem = ".$po.") as porao".$po.",";
         $po++;
       }
       $po2 = 1;
@@ -39,11 +38,14 @@
       (select sum(total) from plano_ope_porao where atracacao = atr.id) as total
       FROM atracacao atr join navios n on atr.navio = n.id join berco b on atr.berco = b.id join lancamentos lanc on lanc.atracacao = atr.id join plano_ope_porao plan on plan.atracacao = atr.id where atr.id = ".$id." group by atr.id";
 
-    //echo"<hr>";
+    
 
       $prep_at = $con->prepare($atracacao_dados);
       $prep_at->execute();
       $dados_at = $prep_at->fetch();
+
+
+
       $select = "
       SELECT 
       atr.id,
