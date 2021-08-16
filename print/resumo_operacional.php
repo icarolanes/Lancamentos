@@ -60,53 +60,7 @@
       GROUP by atr.id,pope.id";
 
       $select;
-    /*
 
-//novo funcional
-
-SELECT pope.data_ref as data,
-
-lper.abv as periodo,
-
-pope.id as popeid,
-
-(SELECT if(par.periodo = pope.id, GROUP_CONCAT( (lpar.pt_br)SEPARATOR ''),'0') from paralizacao_ope par join lista_paralizacoes lpar on par.paralizacao = lpar.id where par.terno = ter.terno and par.periodo = ter.periodo) as paralizacoes,
-(SELECT if(par.periodo = pope.id, GROUP_CONCAT( (timediff(par.par_termino,par.par_inicio))SEPARATOR ''),'0') from paralizacao_ope par join lista_paralizacoes lpar on par.paralizacao = lpar.id where par.terno = ter.terno and par.periodo = ter.periodo) as tempo,
-
-if((lanc.armazem = 1 and ter.porao = lanc.armazem),sum(lanc.liquido),'0') as porao1,
-if((lanc.armazem = 2 and ter.porao = lanc.armazem),sum(lanc.liquido),'0') as porao2,
-if((lanc.armazem = 3 and ter.porao = lanc.armazem),sum(lanc.liquido),'0') as porao3,
-if((lanc.armazem = 4 and ter.porao = lanc.armazem),sum(lanc.liquido),'0') as porao4,
-if((lanc.armazem = 5 and ter.porao = lanc.armazem),sum(lanc.liquido),'0') as porao5,
-
-sum(lanc.liquido) as total
-
-from atracacao atr 
-join periodos_operacao pope on pope.atracacao = atr.id 
-left join ternos ter on ter.periodo = pope.id 
-left join lancamentos lanc on lanc.periodo = pope.id 
-join lista_periodos lper on lper.id = pope.periodo 
-GROUP by atr.id,pope.data_ref,pope.periodo,ter.id;
-
-
-//// antigo
-SELECT 
-      pope.data_ref as data,
-      lper.abv as periodo,
-      pope.id as popeid,
-      (SELECT if(par.periodo = pope.id, GROUP_CONCAT( (lpar.pt_br)SEPARATOR '<br>'),'0') from paralizacao_ope par join lista_paralizacoes lpar on par.paralizacao = lpar.id  where par.periodo = pope.id) as paralizacoes,
-      (SELECT if(par.periodo = pope.id, GROUP_CONCAT( (timediff(par.par_termino,par.par_inicio))SEPARATOR '<br>'),'0') from paralizacao_ope par join lista_paralizacoes lpar on par.paralizacao = lpar.id  where par.periodo = pope.id) as tempo,
-      ".$pors."
-      sum(lanc.liquido) as total  
-      from atracacao atr 
-      left join lancamentos lanc on lanc.atracacao = atr.id
-      join periodos_operacao pope on lanc.periodo = pope.id
-      join lista_periodos lper on pope.periodo = lper.id
-      where lanc.tipo = 3 and atr.id = ".$id."
-      group by  pope.data_ref,pope.periodo
-
-
-    */
 
 
       $prepare = $con->prepare($select);

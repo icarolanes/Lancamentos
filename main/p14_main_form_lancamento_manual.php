@@ -158,13 +158,13 @@ _________
       $preparar_car->execute();
       $contar_car = $preparar_car ->rowCount();
 
-if($contar_car>0){
-$carreta_car = $preparar_car->fetch(); 
+      if($contar_car>0){
+        $carreta_car = $preparar_car->fetch(); 
 
-}else{
+      }else{
 
-  $carreta_car['placa'] = "0";
-}
+        $carreta_car['placa'] = "0";
+      }
 
       ?>
 
@@ -184,23 +184,15 @@ $carreta_car = $preparar_car->fetch();
     </div>
     <div class="col-md-3">
       <label for="periodo" class="form-label">Periodo</label>
-      <select id="periodo" name="pe" class="form-select">
         <?php 
         $sel_per = "SELECT pope.id as id, pope.data_ref , lper.abv as periodo from periodos_operacao pope join lista_periodos lper on pope.periodo = lper.id order by data_ref,periodo desc";
         $prepara = $con->prepare($sel_per);
         $prepara ->execute();
+        $per = $prepara->fetch();
+
+        $periodo_text =  date('d/m-', strtotime($per['data_ref'])).$per['periodo'];
         ?>
-        <?php 
-        while ($per=$prepara->fetch()) {
-          if ($_POST['pe'] == $per['id']) {
-            $sel = "selected";
-          }else{
-            $sel = "";
-          }
-          echo "<option value='".$per['id']."' ".$sel.">".date('d/m-', strtotime($per['data_ref'])).$per['periodo']."</option>";
-        }
-        ?>
-      </select>
+      <input readonly  id="periodo" name="pe" class="form-control" value="<?php echo $periodo_text;?>">
     </div>
 
     <div class="col-md-4">
@@ -279,13 +271,13 @@ $carreta_car = $preparar_car->fetch();
       <select id="armazem" name="arma" required class="form-select">
         <option>Selecione...</option>
         <?php 
-        $armazem = "SELECT * from armazem";
+        $armazem = "SELECT * from operacao ";
         $prepara_arm = $con->prepare($armazem);
         $prepara_arm ->execute();
         ?>
         <?php 
         while ($arma=$prepara_arm->fetch()) {
-          echo "<option value='".$arma['id']."'>".$arma['descr']."</option>";
+          echo "<option value='".$arma['id']."'>".$arma['armazem']."</option>";
         }
         ?>
       </select>
