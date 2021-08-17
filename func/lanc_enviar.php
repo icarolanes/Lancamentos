@@ -166,7 +166,6 @@ echo "</fieldset>";
 
 $query_insert = "INSERT INTO `lancamentos`(
 `atracacao`,
-`tipo`,
 `documento`,
 `data`,
 `transp`,
@@ -174,7 +173,6 @@ $query_insert = "INSERT INTO `lancamentos`(
 `placa`,
 `carreta1`,
 `carreta2`,
-`periodo`,
 `bruto`,
 `liquido`,
 `tara`,
@@ -183,7 +181,6 @@ $query_insert = "INSERT INTO `lancamentos`(
 )
 VALUES(
 $atra, 
-$tipo,
 $doc,
 '$data',
 $transp, 			
@@ -191,7 +188,6 @@ $id_cpf,
 $placa,
 $placa_final[0],
 $placa_final[1],
-'$pe',
 '$bruto',
 '$liquido',
 '$tara',

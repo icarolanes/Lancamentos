@@ -247,22 +247,7 @@ while ($linha=$resultado->fetch()) {
         ?>
         <form id="man" method="post" action="<?php echo $action;?>">
           <input readonly hidden type="text" name="navio" value="<?php echo $navio['Nnome'];?>">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Tipo</span>
-            <select required id="inputtp" name="tp" class="form-select">
-              <option ></option>
-              <?php 
-              $sel_ope = "SELECT * from tipo_lancamento";
-              $prepara = $con->prepare($sel_ope);
-              $prepara ->execute();
-              ?>
-              <?php 
-              while ($lanc=$prepara->fetch()) {
-                echo "<option value='".$lanc['id']."'>".$lanc['nTipo']."</option>";
-              }
-              ?>
-            </select>
-          </div>
+          
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Documento</span>
             <select required id="inputdc" name="dc" class="form-select">

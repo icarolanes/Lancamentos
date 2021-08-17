@@ -103,17 +103,7 @@ _________
       <input  type="text" class="form-control" placeholder="nome do navio" disabled value="<?php echo $navio?>" >
       <input readonly type="number" class="form-control" name="atra" hidden placeholder="id atracacao" value="<?php echo $_GET['n']?>"  >
     </div>    
-    <div  class="col-md-4">
-      <label  for="" class="form-label">Operação</label>
-      <?php 
-      $query_busca_ope = "SELECT * FROM tipo_lancamento where id = ".$_POST['tp'];
-      $prepara_ope = $con->prepare($query_busca_ope);
-      $prepara_ope->execute();
-      $operacao = $prepara_ope->fetch();
-      ?>
-      <input readonly type="text" class="form-control" value="<?php echo $operacao['nTipo']?>" placeholder="Operação">
-      <input readonly type="text" class="form-control" name="oper" hidden value="<?php echo $operacao['id']?>" placeholder="Operação">
-    </div>
+    
     <div class="col-md-4">
       <label for="" class="form-label">Documento</label>
       <?php 
@@ -267,8 +257,8 @@ _________
       </datalist>
     </div>
     <div class="col-md-4">
-      <label for="armazem" class="form-label">Armazem</label>
-      <select id="armazem" name="arma" required class="form-select">
+      <label for="operacao" class="form-label">Armazem</label>
+      <select id="operacao" name="arma" required class="form-select">
         <option>Selecione...</option>
         <?php 
         $armazem = "SELECT * from operacao ";
@@ -309,41 +299,3 @@ _________
   </form>
 </div>
 </main>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cadastro de placa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="cad_placa" action="func/placa_cad.php" method="post">
-          <input readonly hidden type="text" name="pagina" value="<?php echo $_SERVER['HTTP_REFERER'];?>">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Placa</span>
-            <input type="text" class="form-control" placeholder="Placa Veículo" aria-label="placa" name="placa" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">Tipo</span>
-            <select class="form-control" placeholder="tipo_placa" aria-label="tipo_placa" name="tipo" aria-describedby="basic-addon2">
-              <?php 
-              $query_tipo_placa = "SELECT * from tipo_placa";
-              $prepare_tipo_placa = $con->prepare($query_tipo_placa);
-              $prepare_tipo_placa->execute();
-              while ($placa = $prepare_tipo_placa->fetch()) {
-                echo "<option value='".$placa['id']."'>".$placa['tipo']."</option>";
-              }
-              ?>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="submit" form="cad_placa" class="btn btn-primary">Cadastrar Placa</button>
-      </div>
-    </div>
-  </div>
-</div>
