@@ -3,7 +3,7 @@ session_start();
 $usuariot = $_POST['usuario'];
 $senhat = base64_encode($_POST['senha']);
 
-include('../func/conexao.php');
+include('../../conexao.php');
 
 
 $queryu = "SELECT u.id as id, u.usuario as usuario, u.senha as senha, u.tipo as tipo, p.nome as pessoa FROM usuarios u join pessoa p on u.nome = p.id  WHERE usuario='$usuariot' AND senha='$senhat' LIMIT 1";
