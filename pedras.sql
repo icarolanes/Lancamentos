@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Ago-2021 às 12:15
+-- Tempo de geração: 17-Ago-2021 às 19:31
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -173,7 +173,6 @@ INSERT INTO `empresas` (`id`, `xCNPJ`, `xNome`, `fantasia`, `ap`) VALUES
 CREATE TABLE `lancamentos` (
   `id` int(11) NOT NULL,
   `atracacao` int(11) NOT NULL,
-  `tipo` int(11) NOT NULL COMMENT 'recepção / embarque / desembarque / transferencia',
   `documento` int(11) NOT NULL COMMENT 'id do documento de im/exp',
   `nf` int(11) DEFAULT NULL COMMENT 'id da nota fiscal (se tiver)',
   `transp` int(11) DEFAULT NULL COMMENT 'id da transportadora (empresas)',
@@ -182,7 +181,6 @@ CREATE TABLE `lancamentos` (
   `carreta1` int(11) DEFAULT NULL COMMENT 'placa do veiculo de transporta',
   `carreta2` int(11) DEFAULT NULL COMMENT 'placa do veiculo de transporta',
   `data` datetime NOT NULL COMMENT 'data da movimentação',
-  `periodo` int(11) NOT NULL COMMENT 'período realizado',
   `tara` float DEFAULT NULL COMMENT 'peso de entrada',
   `bruto` float DEFAULT NULL COMMENT 'peso de saída',
   `liquido` float DEFAULT NULL COMMENT 'diferença',
@@ -195,18 +193,18 @@ CREATE TABLE `lancamentos` (
 -- Extraindo dados da tabela `lancamentos`
 --
 
-INSERT INTO `lancamentos` (`id`, `atracacao`, `tipo`, `documento`, `nf`, `transp`, `motorista`, `placa`, `carreta1`, `carreta2`, `data`, `periodo`, `tara`, `bruto`, `liquido`, `operacao`, `usuario`, `dlancamento`) VALUES
-(1, 1, 3, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:10:00', 1, 16180, 41500, 25320, 5, 1, '2021-07-24 14:11:16'),
-(2, 1, 3, 4, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:14:00', 2, 21650, 41500, 25320, 6, 1, '2021-07-24 14:15:34'),
-(3, 1, 3, 5, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:16:00', 3, 17800, 53200, 25320, 7, 1, '2021-07-24 14:16:49'),
-(4, 1, 3, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 4, 16100, 48600, 25320, 8, 1, '2021-07-24 14:17:49'),
-(5, 1, 3, 2, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:47:00', 10, 24000, 74000, 25320, 9, 1, '2021-07-24 14:48:20'),
-(6, 1, 3, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:48:00', 11, 10500, 30800, 25320, 10, 1, '2021-07-24 14:49:32'),
-(7, 1, 3, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:10:00', 12, 16180, 41500, 25320, 11, 1, '2021-07-24 14:11:16'),
-(8, 1, 3, 4, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:14:00', 13, 21650, 53000, 25320, 12, 1, '2021-07-24 14:15:34'),
-(9, 1, 3, 5, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:16:00', 14, 17800, 53200, 25320, 13, 1, '2021-07-24 14:16:49'),
-(10, 1, 3, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 1, 16100, 48600, 25320, 14, 1, '2021-07-24 14:17:49'),
-(11, 1, 3, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 3, 16100, 48600, 25320, 15, 1, '2021-07-24 14:17:49');
+INSERT INTO `lancamentos` (`id`, `atracacao`, `documento`, `nf`, `transp`, `motorista`, `placa`, `carreta1`, `carreta2`, `data`, `tara`, `bruto`, `liquido`, `operacao`, `usuario`, `dlancamento`) VALUES
+(1, 1, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:10:00', 16180, 41500, 25320, 5, 1, '2021-07-24 14:11:16'),
+(2, 1, 4, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:14:00', 21650, 41500, 25320, 6, 1, '2021-07-24 14:15:34'),
+(3, 1, 5, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:16:00', 17800, 53200, 25320, 7, 1, '2021-07-24 14:16:49'),
+(4, 1, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 16100, 48600, 25320, 8, 1, '2021-07-24 14:17:49'),
+(5, 1, 2, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:47:00', 24000, 74000, 25320, 9, 1, '2021-07-24 14:48:20'),
+(6, 1, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:48:00', 10500, 30800, 25320, 10, 1, '2021-07-24 14:49:32'),
+(7, 1, 1, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:10:00', 16180, 41500, 25320, 11, 1, '2021-07-24 14:11:16'),
+(8, 1, 4, NULL, 5, 1, 11, 12, NULL, '2021-07-24 11:14:00', 21650, 53000, 25320, 12, 1, '2021-07-24 14:15:34'),
+(9, 1, 5, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:16:00', 17800, 53200, 25320, 13, 1, '2021-07-24 14:16:49'),
+(10, 1, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 16100, 48600, 25320, 14, 1, '2021-07-24 14:17:49'),
+(11, 1, 2, NULL, 5, 1, 11, 67, NULL, '2021-07-24 11:17:00', 16100, 48600, 25320, 15, 1, '2021-07-24 14:17:49');
 
 -- --------------------------------------------------------
 
@@ -902,7 +900,7 @@ INSERT INTO `nf_itens` (`id`, `cProd`, `nf_id`, `xProd`, `infAdProd`, `NCM`, `CF
 
 CREATE TABLE `operacao` (
   `id` int(11) NOT NULL,
-  `operacao` int(11) NOT NULL,
+  `operacao` int(11) NOT NULL COMMENT 'Tipo de operação',
   `periodo` int(11) NOT NULL,
   `armazem` int(11) NOT NULL,
   `faina` varchar(5) NOT NULL,
