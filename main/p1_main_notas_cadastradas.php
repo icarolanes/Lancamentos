@@ -27,7 +27,7 @@
           <tbody>
             <?php 
 
-            $queryu = "SELECT nf.id as idNF, nf.nNF,nf.qtdvol as qtd ,nf.Numeracao_item as itemNaNf, em.xNome as emissor , nf.transport as transportadora, nf.Pliquido as LiqNf from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by nf.nNF
+            $queryu = "SELECT nf.id as idNF, nf.nNF,nf.qtdvol as qtd ,nf.Numeracao_item as itemNaNf, em.xNome as emissor , nf.transport as transportadora, nf.Pliquido as LiqNf from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by nf.id order by nf.id desc
 
             ";
 // por enquanto SELECT nf.nNF,nf.qtdvol as qtd , em.xNome as emissor , nf.transport as transportadora from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by  nNf;;
