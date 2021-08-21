@@ -9,6 +9,10 @@
         </div>
       </div>
       <?php 
+      if (isset($_SESSION['mensagem'])) {
+        echo $_SESSION['mensagem'];
+        unset($_SESSION['mensagem']);
+      }
       include_once ('includes/p1_Lista_NFs.php');
       ?>
     </main>
@@ -28,7 +32,7 @@
               <div class="mb-3">
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>
                 <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" required>
-    
+
               </div>
 
             </form>
