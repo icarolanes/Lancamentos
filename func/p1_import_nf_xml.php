@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('conexao.php');
+include_once('../../conexao.php');
 //variavel para contar as execuções bem suceditas
 $itens_ja_cadastrados = 0;
 $notas_ja_cadastradas = 0;
@@ -22,7 +22,14 @@ for ($i=0; $i < $qtdxml ; $i++) {
 //natureza da operação
     $natOp =    $filexml->NFe->infNFe->ide->natOp;
     //data e hora da emissão
-    $dhEmi =    $filexml->NFe->infNFe->ide->dhEmi;
+
+    
+    $data =    $filexml->NFe->infNFe->ide->dhEmi;
+
+    $dhEmi = date('Y-m-d H:i:s', strtotime($data));
+
+
+
 //emitente
     $emi_nome = $filexml->NFe->infNFe->emit->xNome;
     $emi_cnpj = $filexml->NFe->infNFe->emit->CNPJ;
@@ -147,7 +154,7 @@ if($contar_se_nota_cadastrada > 0){
 
 //execute
 
-    $QinsertNF =  ("INSERT INTO `nf_ident`(`chave`,`nNF`,`serie`,`tpNF`,`dhEmi`,`emissor`,`qtdvol`,`Numeracao_item`,`Pbruto`,`Pliquido`,`vProd`,`vNF`,`transport`,`info_comp_nota`) VALUES ('$chave','$nNF','$serie','$tpNF','$dhEmi','$emissor','$qtdvol','$Numeracao_item','$Pbruto','$Pliquido','$vProd','$vNF','$transport','$info_comp_nota')");
+    $QinsertNF =  ("INSERT INTO `nf_ident`(`chave`,`nNF`,`serie`,`tpNF`,`dhEmi`,`emissor`,`qtdvol`,`Numeracao_item`,`Pbruto`,`Pliquido`,`vProd`,`vNF`,`transport`,`info_comp_nota`,`cad_met`) VALUES ('$chave','$nNF','$serie','$tpNF','$dhEmi','$emissor','$qtdvol','$Numeracao_item','$Pbruto','$Pliquido','$vProd','$vNF','$transport','$info_comp_nota', 1)");
 
     $cadastrar = $con ->prepare($QinsertNF);
     $cadastrar ->execute();
@@ -244,6 +251,6 @@ $_SESSION['notas_ja_cadastradas'] = $notas_ja_cadastradas ;
 
 $_SESSION['mensagem'] = "total de novas notas cadastradas: ".$notas_cadastradas."<br> total de novos itens cadastradas: ".$itens_cadastrados."<br> total de itens anteriormente cadastrados:". $itens_ja_cadastrados."<br> total de itens anteriormente cadastrados:". $notas_ja_cadastradas."<br>";
 
-    header("Location: index.php");
+    header("Location: ../index.php?p=1");
 
 ?>
