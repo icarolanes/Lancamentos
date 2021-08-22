@@ -48,31 +48,6 @@ for ($i=0; $i < $qtdxml ; $i++) {
 //transportadora
     $transp_nome = $filexml->NFe->infNFe->transp->transporta->xNome;
     $transp_cnpj = $filexml->NFe->infNFe->transp->transporta->CNPJ;
-    /*
-    echo "<p>";
-    echo "Chave:   ".$chave."<br>";
-    echo "Nº Nota: ".$nNF."<br>";
-    echo "serie:"   .$serie."<br>";
-    echo "tpNF:"    .$tpNF."<br>";
-    echo "natOp:   ".$natOp."<br>";
-    echo "dhEmi:   ".$dhEmi."<br>";
-    echo "<hr>";
-    echo "Emissor: ".$emi_nome."<br>";
-    echo "CNPJ: ".$emi_cnpj."<br>";
-    echo "<hr>";
-    echo "Volumes: ".$qtdvol."<br>";
-    echo "transportadora: ".$transp_nome."<br>";
-    echo "Cnpj transportadora: ".$transp_cnpj."<br>";
-    echo "<hr>";
-    echo "Numeracao: ".$Numeracao_item."<br>";
-    echo "Pbruto: ".$Pbruto ."<br>";
-    echo "Pliquido: ".$Pliquido ."<br>";
-   //valor da nota
-    echo "Valor dos produtos:   ".$vProd ."<br>";
-    echo "Valor da nota:        ".$vNF ."<br>";
-
-*/
-
 
 //contagem de itens
     $qtd_itens = count($filexml->NFe->infNFe->det);
@@ -85,11 +60,11 @@ for ($i=0; $i < $qtdxml ; $i++) {
         $ConsCnpj[1]    =   $transp_cnpj;
     // code...
     }else{
-     $CadEmp[1]      =   "não informado";
-     $ConsCnpj[1]    =   "999999999999";
- }
+       $CadEmp[1]      =   "não informado";
+       $ConsCnpj[1]    =   "999999999999";
+   }
  //inicio de for para cadstro de empresa
- for ($foremp=0; $foremp < 2 ; $foremp++) { 
+   for ($foremp=0; $foremp < 2 ; $foremp++) { 
 
     $QconsEMp = "SELECT * FROM empresas where xCNPJ = ".$ConsCnpj[$foremp]."";
     $consultar = $con ->prepare($QconsEMp);
@@ -182,27 +157,7 @@ for ($i2=0; $i2 < $qtd_itens ; $i2++) {
     $item_qCom      =      doubleval($item->qCom);
     $item_vUnCom    =      doubleval($item->vUnCom);
     $item_vProd     =      doubleval($item->vProd);
-/*
-    echo "<p>";
-    //echo "<fieldset>";
-    echo  "codigo do produto(nf): ". $item_cProd."<br>";
-       //cEAN é o codigo de barras do produto ""
-      //  echo  "cEAN: ". $item_cEAN =     $item->cEAN."<br>";
-      //descrição do produto
-    echo  "xProd: ". $item_xProd."<br>";
-    echo "infAdProd: ".$infAdProd."<br>";
-    echo  "NCM: ". $item_NCM."<br>";
-    echo  "CFOP: ". $item_CFOP."<br>";
-       //unidade de medida
-    echo  "uCom: ". $item_uCom."<br>";
-       //valor da medida
-    echo  "qCom: ". $item_qCom."<br>";
-       //valor unitario
-    echo  "vUnCom: ". $item_vUnCom."<br>";
-    echo  "vProd: ". $item_vProd."<br>";
-    //echo "</fieldset>";
-    echo "</p>";
-*/
+
 // execute verificação antes de enviar os dados
 
 
@@ -229,10 +184,7 @@ for ($i2=0; $i2 < $qtd_itens ; $i2++) {
 
     }
 }
-echo "</p>";
-//dados adicionais $filexml->NFe->infNFe
-//echo $info_comp_nota;
-//echo "</fieldset>";
+
 }
 echo "total de novas notas cadastradas: ".$notas_cadastradas."<br>";
 echo "total de novos itens cadastradas: ".$itens_cadastrados."<br>";
@@ -250,7 +202,5 @@ $_SESSION['notas_ja_cadastradas'] = $notas_ja_cadastradas ;
 
 
 $_SESSION['mensagem'] = "total de novas notas cadastradas: ".$notas_cadastradas."<br> total de novos itens cadastradas: ".$itens_cadastrados."<br> total de itens anteriormente cadastrados:". $itens_ja_cadastrados."<br> total de itens anteriormente cadastrados:". $notas_ja_cadastradas."<br>";
-
-    header("Location: ../index.php?p=1");
-
+header("Location: ../index.php?p=1");
 ?>
