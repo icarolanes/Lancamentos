@@ -50,18 +50,21 @@
           <?php 
 
           $queryu = "SELECT 
-          lanc.id        as tipo,
-          lanc.id        as atr,
-          lanc.id        as documento,
-          lanc.id        as responsavel,
-          lanc.id        as motorista,
-          lanc.id        as placa,
-          lanc.id        as armazem,
-          lanc.id        as data,
-          lanc.id        as data_ref,
-          lanc.id        as periodo,
-          lanc.id        as liquido
+          lanc.id              as tipo,
+          lanc.id              as atr,
+          doc.identificacao    as documento,
+          emp.ap          as responsavel,
+          lanc.id              as motorista,
+          lanc.id              as placa,
+          lanc.id              as armazem,
+          lanc.id              as data,
+          lanc.id              as data_ref,
+          lanc.id              as periodo,
+          lanc.id              as liquido
           from lancamentos lanc 
+          join documentos doc on doc.id = lanc.documento
+          join empresas emp on emp.id = doc.empresa
+          
 
           ";
 
