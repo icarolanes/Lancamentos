@@ -60,11 +60,11 @@
           lanc.id              as data,
           lanc.id              as data_ref,
           lanc.id              as periodo,
-          lanc.id              as liquido
+          lanc.liquido         as liquido
           from lancamentos lanc 
           join documentos doc on doc.id = lanc.documento
           join empresas emp on emp.id = doc.empresa
-          
+
 
           ";
 
