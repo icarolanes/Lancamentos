@@ -80,7 +80,7 @@
                 <td><?php echo $linha['nf']; ?></td>
                 <td title="<?php echo $linha['motorista']; ?>"><?php echo $linha['placa']; ?></td>
                 <td><?php echo $linha['ori']; ?></td>
-                <td><?php echo $linha['data']; ?></td>
+              <td><?php echo date('d/m H:i', strtotime($linha['data'])); ?></td>
                 <td><?php echo  periodo($linha['dope'],$linha['periodo']) ?></td>
                 <td><?php echo $linha['liquido']; ?></td>
               </tr>
