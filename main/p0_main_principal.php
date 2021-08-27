@@ -36,7 +36,6 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Tipo</th>
-            <th scope="col">Atr</th>
             <th scope="col">Documento</th>
             <th scope="col">Empresa</th>
             <th scope="col">Placa</th>
@@ -50,20 +49,22 @@
           <?php 
 
           $queryu = "SELECT 
-          lanc.id              as tipo,
-          lanc.id              as atr,
-          doc.identificacao    as documento,
-          emp.ap          as responsavel,
-          lanc.id              as motorista,
-          lanc.id              as placa,
-          lanc.id              as armazem,
-          lanc.id              as data,
-          lanc.id              as data_ref,
-          lanc.id              as periodo,
-          lanc.liquido         as liquido
-          from lancamentos lanc 
-          join documentos doc on doc.id = lanc.documento
-          join empresas emp on emp.id = doc.empresa
+            lanc.id               as tipo,
+            doc.identificacao     as documento,
+            emp.ap                as responsavel,
+            lanc.id               as ori,
+            lanc.nf               as nf,
+            lanc.id               as motorista,
+            (select p.placa from placas p where p.id = lanc.placa)            as placa,
+            lanc.data             as data,
+            pope.data_ref         as dope,
+            (select abv from lista_periodos where id = pope.periodo)          as periodo,
+            lanc.liquido          as liquido 
+            from lancamentos lanc 
+            join documentos doc on doc.id = lanc.documento
+            join empresas emp on emp.id = doc.empresa
+            join periodos_operacao pope on pope.id = lanc.operacao
+
 
 
           ";
@@ -81,13 +82,12 @@
             <tr>
               <td>Abrir</td>
               <td><?php echo $linha['tipo']; ?></td>
-              <td><?php echo $linha['atr']; ?></td>
               <td><?php echo $linha['documento']; ?></td>
               <td><?php echo $linha['responsavel']; ?></td>
               <td title="<?php echo $linha['motorista']; ?>"><?php echo $linha['placa']; ?></td>
-              <td><?php echo $linha['armazem']; ?></td>
+              <td><?php echo $linha['ori']; ?></td>
               <td><?php echo date('d/m H:i', strtotime($linha['data'])); ?></td>
-              <td><?php echo date('d/m-', strtotime($linha['data_ref'])).$linha['periodo']; ?></td>
+              <td><?php echo  periodo($linha['dope'],$linha['periodo']) ?></td>
               <td><?php echo $linha['liquido']; ?></td>
 
             </tr>
