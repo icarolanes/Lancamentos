@@ -17,24 +17,23 @@
           </thead>
           <tbody>
             <?php 
-
 // query dos itens a serem mostrados
             $query_lanc = "SELECT 
             lanc.id               as tipo,
             doc.identificacao     as documento,
             emp.ap                as responsavel,
             lanc.id               as ori,
-            lanc.id               as nf,
+            lanc.nf               as nf,
             lanc.id               as motorista,
-            lanc.id               as placa,
-            lanc.id               as data,
-            lanc.id               as dope,
-            lanc.id               as periodo,
+            (select p.placa from placas p where p.id = lanc.placa)            as placa,
+            lanc.data             as data,
+            pope.data_ref         as dope,
+            (select abv from lista_periodos where id = pope.periodo)          as periodo,
             lanc.liquido          as liquido 
             from lancamentos lanc 
             join documentos doc on doc.id = lanc.documento
-
             join empresas emp on emp.id = doc.empresa
+            join periodos_operacao pope on pope.id = lanc.operacao
 
             WHERE lanc.atracacao = ".$_GET['n']."
             order by lanc.id";
@@ -61,50 +60,51 @@
                 break;
               }
             }
-$qpp = 20; //quantidade por paginas
-$inicio = $page-1;
-$inicio = $inicio * $qpp;
-$query_limit = $query_lanc. " LIMIT  $inicio, ".$qpp;
+//quantidade por paginas            
+            $qpp = 20; 
+            $inicio = $page-1;
+            $inicio = $inicio * $qpp;
+            $query_limit = $query_lanc. " LIMIT  $inicio, ".$qpp;
 //ececuta a query da quantidade atual
-$resultado = $con ->prepare($query_limit);
-$resultado ->execute();
-$cnt = 1;
-while ($linha=$resultado->fetch()) {
+            $resultado = $con ->prepare($query_limit);
+            $resultado ->execute();
+            $cnt = 1;
+            while ($linha=$resultado->fetch()) {
               // id`, `tipo`, `documento`, `responsavel`, `nf`, `transp`, `motorista`, `placa`, `data`, `periodo`, `tara`, `bruto`, `liquido`, `porao`
-  ?>
-  <tr>
-    <td>Abrir</td>
-    <td><?php echo $linha['tipo']; ?></td>
-    <td><?php echo $linha['documento']; ?></td>
-    <td><?php echo $linha['responsavel']; ?></td>
-    <td><?php echo $linha['nf']; ?></td>
-    <td title="<?php echo $linha['motorista']; ?>"><?php echo $linha['placa']; ?></td>
-    <td><?php echo $linha['ori']; ?></td>
-    <td><?php echo $linha['data']; ?></td>
-    <td title="<?php echo $linha['dope']; ?>"><?php echo $linha['periodo']; ?></td>
-    <td><?php echo $linha['liquido']; ?></td>
-  </tr>
-  <?php
-}
-?>
-</tbody>
-</table>
+              ?>
+              <tr>
+                <td>Abrir</td>
+                <td><?php echo $linha['tipo']; ?></td>
+                <td><?php echo $linha['documento']; ?></td>
+                <td><?php echo $linha['responsavel']; ?></td>
+                <td><?php echo $linha['nf']; ?></td>
+                <td title="<?php echo $linha['motorista']; ?>"><?php echo $linha['placa']; ?></td>
+                <td><?php echo $linha['ori']; ?></td>
+                <td><?php echo $linha['data']; ?></td>
+                <td><?php echo  periodo($linha['dope'],$linha['periodo']) ?></td>
+                <td><?php echo $linha['liquido']; ?></td>
+              </tr>
+              <?php
+            }
+            ?>
+          </tbody>
+        </table>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $navant ?>">Anterior
-    </a></li>
-    <?php  
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $navant ?>">Anterior
+            </a></li>
+            <?php  
 //paginação
-    $pages = $contar_lanc / $qpp;
-    $nav = 1;
-    for ($i=0; $i < $pages ; $i++) { 
-      ?>
-      <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $nav ?>"><?php echo $nav++ ?></a></li>
-      <?php  
-    }
-    ?>
-    <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $navprox ?>">Proxima</a></li>
-  </ul>
-</nav>
-</div>
+            $pages = $contar_lanc / $qpp;
+            $nav = 1;
+            for ($i=0; $i < $pages ; $i++) { 
+              ?>
+              <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $nav ?>"><?php echo $nav++ ?></a></li>
+              <?php  
+            }
+            ?>
+            <li class="page-item"><a class="page-link" href="index.php?<?php echo "p=".$_GET['p']."&n=".$_GET['n']."&page=". $navprox ?>">Proxima</a></li>
+          </ul>
+        </nav>
+      </div>
