@@ -4,6 +4,7 @@
   include('func/seguranca.php');
   include('func/conexao.php');
   include('assets/paginas.php');
+  include_once('tratamentos.php');
 
   ?>
   
