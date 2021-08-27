@@ -7,7 +7,7 @@
     </style>
     <meta charset="utf-8">
     <?php
-    include('../func/conexao.php');
+    include('../../conexao.php');
     include('funcoes.php');
     function rop($con,$id){
 //Select dados de atracação
