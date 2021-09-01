@@ -1,0 +1,26 @@
+ul {
+	display: block;
+	list-style-type: none;
+	margin-top: 1em;
+	margin-bottom: 1 em;
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 40px;
+}
+td{
+	border: 1px solid lightgrey;
+}
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+	width: 1000px;
+	border-style: solid;
+}
+th{
+	text-align: center;
+	border: 1px solid gray;
+	background-color: lightgrey;
+}
+.info{
+	background-color: lightblue;
+}
