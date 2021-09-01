@@ -1,32 +1,5 @@
-<style>
-ul {
-	display: block;
-	list-style-type: none;
-	margin-top: 1em;
-	margin-bottom: 1 em;
-	margin-left: 0;
-	margin-right: 0;
-	padding-left: 40px;
-}
-td{
-	border: 1px solid lightgrey;
-}
-table {
-	border: 2px solid black;
-	border-collapse: collapse;
-	width: 1000px;
-	border-style: solid;
-}
-th{
-	text-align: center;
-	border: 1px solid gray;
-	background-color: lightgrey;
-}
-.info{
-	background-color: lightblue;
-}
-</style>
-</style>
+
+
 <div class="titulo">  
 	Atracação--------------
 	<ul>
@@ -79,21 +52,24 @@ th{
 			<?php
 
 			//dentro dos periodos, é realizado uma nova consulta para mostrar os periodos dentro do dia. 
-			$query_busca_periodos = "
+			echo $query_busca_periodos = "
 			SELECT
 			ope.id as id,
 			pope.data_ref, 
 			pope.periodo as periodoid,
 			ope.terno as ternoid,
 			ope.faina as faina,
-			(ope.faina)as paralizacoes
-			FROM operacao ope join periodos_operacao pope on pope.id = ope.periodo where pope.data_ref = '".$datas_['data_ref']."'group by pope.data_ref,pope.periodo,ope.terno";
+			(ope.faina)as paralizacoes,
+			(select sum(lanc.liquido) from lancamentos lanc where operacao = ope.id ) as total
+			FROM operacao ope join periodos_operacao pope on pope.id = ope.periodo where pope.data_ref = '".$datas_['data_ref']."' group by pope.data_ref,pope.periodo,ope.terno";
 				// prioridade de ordem, data_ref, periodo dia, terno ( group by pope.data_ref,pope.periodo,ope.terno)
 			$prep_peri = $con->prepare($query_busca_periodos);
 			$prep_peri ->execute();
+			// separação por dia
+			$total_dia = "0";
 			while ($lins = $prep_peri->fetch()) {
 				
-				?>
+				?><br>
 				<tr>
 					<td colspan="2"><?php echo $lins['periodoid']?></td>
 					<td><?php echo $lins['ternoid']?></td>
@@ -104,7 +80,7 @@ th{
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>000.000</td>
+					<td><?php $total_dia = $total_dia+$lins['total']; echo $lins['total']?></td>
 				</tr>
 				<tr>
 					<td>Paralizações:</td>
@@ -118,7 +94,7 @@ th{
 			<tr>
 				<td colspan="3"></td>
 				<td class="info" colspan="6">Meta: Alcançada</td>
-				<td class="info" colspan="2">000.000</td>
+				<td class="info" colspan="2"><?php echo $total_dia;?></td>
 			</tr>
 			<?php
 		}
