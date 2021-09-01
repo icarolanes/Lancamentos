@@ -7,14 +7,10 @@ ul {
 	margin-left: 0;
 	margin-right: 0;
 	padding-left: 40px;
-
 }
-
 td{
 	border: 1px solid lightgrey;
-
 }
-
 table {
 	border: 2px solid black;
 	border-collapse: collapse;
@@ -27,17 +23,13 @@ th{
 	background-color: lightgrey;
 }
 .info{
-
 	background-color: lightblue;
-
 }
 </style>
 </style>
-
 <div class="titulo">  
 	Atracação--------------
 	<ul>
-
 		<li>Navio:                  <?php echo $dados_at['navio'] ?></li>
 		<li>Atracação:              <?php echo $dados_at['numero'] ?></li>
 		<li>D atracação	            <?php echo $dados_at['atracacao'] ?></li>
@@ -46,27 +38,18 @@ th{
 		<li>D desatracação          <?php echo $dados_at['desatracacao'] ?></li>
 		<li>Tempo de atracacao,     <?php echo $dados_at['Tatracacao'] ?></li>
 		<li>Tempo de operação,      <?php echo $dados_at['Toperacao'] ?></li>
-
 		<li>Tempo de paralização,   <?php echo $dados_at['navio'] ?></li>
 		<li>Tempo real de operação, <?php echo $dados_at['navio'] ?></li>
-
 		<li>Quantidade de periodos, <?php echo $dados_at['navio'] ?></li>
 		<li>Quantidade de ternos,   <?php echo $dados_at['navio'] ?></li>
-
 		<li>Total manifestado,      <?php echo $dados_at['navio'] ?></li>
-
 		<li>Total Descarregado,     <?php echo $dados_at['navio'] ?></li>
 		<li>Media por dia,          <?php echo $dados_at['navio'] ?></li>
 		<li>Media de periodos,      <?php echo $dados_at['navio'] ?></li>
 		<li>Media por hora,         <?php echo $dados_at['navio'] ?></li>
 		<li>Dias corridos,          <?php echo $dados_at['navio'] ?></li>
 	</ul>
-
 </div>
-
-
-
-
 <table >
 	<thead>
 		<tr>
@@ -77,7 +60,6 @@ th{
 			<th colspan="5">Porões</th>
 			<th rowspan="2">Total</th>
 		</tr>
-
 		<tr>
 			<th>1</th>
 			<th>2</th>
@@ -86,19 +68,17 @@ th{
 			<th>5</th>
 		</tr>
 	</thead>
-
 	<tbody>
-
 		<?php 
-
-
 		while ($datas_ = $prep_d_ope->fetch()) {
+			//while acima é para listar os titulos de dias de operação
 			?>
-
 			<tr>
 				<th colspan="11"><?php echo $datas_['data_ref'];?></th>
 			</tr>
-			<?php 
+			<?php
+
+			//dentro dos periodos, é realizado uma nova consulta para mostrar os periodos dentro do dia. 
 			$query_busca_periodos = "
 			SELECT
 			ope.id as id,
@@ -108,17 +88,12 @@ th{
 			ope.faina as faina,
 			(ope.faina)as paralizacoes
 			FROM operacao ope join periodos_operacao pope on pope.id = ope.periodo where pope.data_ref = '".$datas_['data_ref']."'group by pope.data_ref,pope.periodo,ope.terno";
-
 				// prioridade de ordem, data_ref, periodo dia, terno ( group by pope.data_ref,pope.periodo,ope.terno)
 			$prep_peri = $con->prepare($query_busca_periodos);
 			$prep_peri ->execute();
-
 			while ($lins = $prep_peri->fetch()) {
 				
 				?>
-
-
-
 				<tr>
 					<td colspan="2"><?php echo $lins['periodoid']?></td>
 					<td><?php echo $lins['ternoid']?></td>
@@ -129,34 +104,25 @@ th{
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>total terno</td>
+					<td>000.000</td>
 				</tr>
-
 				<tr>
 					<td>Paralizações:</td>
-					<td>Soma de horas</td>
-					<td colspan="9">abreviações</td>
-
+					<td>02:50</td>
+					<td colspan="6">RDS</td>
+					<td colspan="3">000.000</td>
 				</tr>
-
 				<?php
-
 			}
-
 			?>
-
 			<tr>
 				<td colspan="3"></td>
-				<td class="info" colspan="6">Meta: calculo se foi a meta</td>
-				<td class="info" colspan="2">Total dia</td>
+				<td class="info" colspan="6">Meta: Alcançada</td>
+				<td class="info" colspan="2">000.000</td>
 			</tr>
 			<?php
 		}
 		?>
-
-
-
 	</tbody>
 </table>
 <hr>
-
