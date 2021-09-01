@@ -1,5 +1,6 @@
   <html lang="pt-br">
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/impressoes.css">
   <?php
   include('../../conexao.php');
   include('funcoes.php');
