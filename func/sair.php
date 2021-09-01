@@ -10,8 +10,7 @@ $_SESSION['usuarioLogin'],
 $_SESSION['usuarioSenha']);
 	
 
-
 //retorna ao portal publico
-header("location: ../index.php");
+header("location: ../sign-in");
 
 ?>
