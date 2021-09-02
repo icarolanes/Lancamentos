@@ -7,7 +7,7 @@ function datahora($data,$tipo){
     break;
     
     case '2':
-    
+    $data = date('d/m/Y ', strtotime($data));
     break;
     default:
     // code...
