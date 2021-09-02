@@ -43,20 +43,22 @@
 	</thead>
 	<tbody>
 		<?php 
+		$cima = 0;
+		$meta = 5000000;
 		while ($datas_ = $prep_d_ope->fetch()) {
 			//while acima é para listar os titulos de dias de operação
 			?>
 			<tr>
-				<th colspan="11"><?php echo $datas_['data_ref'];?></th>
+				<th colspan="11"><?php echo datahora($datas_['data_ref'],2);?></th>
 			</tr>
 			<?php
 
 			//dentro dos periodos, é realizado uma nova consulta para mostrar os periodos dentro do dia. 
-			echo $query_busca_periodos = "
+			$query_busca_periodos = "
 			SELECT
-			ope.id as id,
+			pope.id as id,
 			pope.data_ref, 
-			pope.periodo as periodoid,
+			(select periodo from lista_periodos where id = pope.periodo) as periodo,
 			ope.terno as ternoid,
 			ope.faina as faina,
 			(ope.faina)as paralizacoes,
@@ -69,9 +71,9 @@
 			$total_dia = "0";
 			while ($lins = $prep_peri->fetch()) {
 				
-				?><br>
+				?>
 				<tr>
-					<td colspan="2"><?php echo $lins['periodoid']?></td>
+					<td colspan="2"><?php echo $lins['periodo']?></td>
 					<td><?php echo $lins['ternoid']?></td>
 					<td><?php echo $lins['faina']?></td>
 					<td></td>
@@ -80,21 +82,21 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><?php $total_dia = $total_dia+$lins['total']; echo $lins['total']?></td>
-				</tr>
-				<tr>
-					<td>Paralizações:</td>
-					<td>02:50</td>
-					<td colspan="6">RDS</td>
-					<td colspan="3">000.000</td>
+					<td><?php $total_dia = $total_dia+$lins['total']; echo numero($lins['total'])?></td>
 				</tr>
 				<?php
+
 			}
 			?>
 			<tr>
 				<td colspan="3"></td>
-				<td class="info" colspan="6">Meta: Alcançada</td>
-				<td class="info" colspan="2"><?php echo $total_dia;?></td>
+				<td class="info" colspan="6"><?php echo meta($meta,$total_dia)?></td>
+				<td class="info" colspan="2"><?php echo numero($total_dia);?></td>
+			</tr>
+			<tr>
+				<td>Resumos do dia:</td>
+				<td>Periodos:<?php echo $cntperiodo = 2;?></td>
+				<td>Media: <?php echo $media = numero($total_dia/$cntperiodo)?></td>
 			</tr>
 			<?php
 		}
