@@ -13,7 +13,7 @@
 
           <div class="col-md-12 mb-3">
             <label for="chaveNota" class="form-label">Chave da NF</label>
-            <input type="text" class="form-control" id="chaveNota" value="31210524042913000139550000000164641100164649" maxlength="44" autofocus >
+            <input type="text" class="form-control" id="chaveNota" value="" maxlength="44" autofocus >
           </div>
 
           <div class="col-md-1 mb-3">
