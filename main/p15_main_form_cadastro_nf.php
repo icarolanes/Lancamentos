@@ -10,10 +10,10 @@
 
         <form oninput="separa_dados();" class="row g-2" method="post" action="func/lanc_enviar.php">
 
-
           <div class="col-md-12 mb-3">
             <label for="chaveNota" class="form-label">Chave da NF</label>
             <input type="text" class="form-control" id="chaveNota" value="" maxlength="44" autofocus >
+            <div class="small mt-2" id="msg">Digite ou leia a nota</div>
           </div>
 
           <div class="col-md-1 mb-3">
