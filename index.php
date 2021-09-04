@@ -18,6 +18,7 @@
     <title>Controle de Movimentação</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/funcoes.js"></script>
 
     
     <!-- Bootstrap core CSS -->
