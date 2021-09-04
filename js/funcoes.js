@@ -1,7 +1,6 @@
 	function separa_dados(){
 		//Chave da nota
 		var chave 	= (document.getElementById('chaveNota').value);
-		var chave_ver 	= (document.getElementById('chaveNota').value);
 		var cnpj 	= (document.getElementById('cnpj').value);
 		var nNF		= (document.getElementById('nNF').value);
 		//separação de dados
@@ -26,7 +25,13 @@
 		document.getElementById('FEmi').value       = FEmi;
 		document.getElementById('CN').value       	= CN;
 		document.getElementById('DV').value       	= DV;
-		//DV da NF
+		//chama função DV da NF
+		verifica_chave();
+	} //fim separa_dados
+
+	function verifica_chave(){
+		var chave_ver 	= (document.getElementById('chaveNota').value);
+		var DV			= chave_ver.substring(43,44);
 		if(chave_ver.length == 44){
 			var chave43 = chave_ver;
 			multiplicadores = ['2','3','4','5','6','7','8','9'];
@@ -54,4 +59,4 @@
 			document.getElementById('msg').innerHTML += 44 - chave_ver.length ;
 			document.getElementById('msg').innerHTML += ' digitos para chave de acesso' ;
 		}//fim DV da NF
-	} //fim separa_dados
+	}
