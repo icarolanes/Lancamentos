@@ -51,12 +51,21 @@
 			}
 			if (dv == DV) {
 				document.getElementById('msg').innerHTML = "Chave de acesso Válida";
+				document.getElementById('enviar').disabled = false;
 			}else{
 				document.getElementById('msg').innerHTML = "Chave de acesso invalida.";
+				document.getElementById('enviar').disabled = true;
 			}
 		}else{
 			document.getElementById('msg').innerHTML = 'Restam ';
 			document.getElementById('msg').innerHTML += 44 - chave_ver.length ;
 			document.getElementById('msg').innerHTML += ' digitos para chave de acesso' ;
+			document.getElementById('enviar').disabled = true;
 		}//fim DV da NF
 	}
+	/*
+	function campo_maiusculo() {
+		var x = document.getElementById("id_campo");
+		x.value = x.value.toUpperCase();
+	}
+	*/
