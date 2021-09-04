@@ -25,9 +25,15 @@ nf.nNF as numero_nota
 FROM nf_ident nf 
 join empresas emi on nf.emissor = emi.id
 join empresas tra on nf.transport = tra.id
-where chave like ".$chave." limit 1" ;
+where chave like '".$chave."' limit 1" ;
 $preparenf = $con->prepare($querychave);
 $preparenf->execute();
+
+$conta_busa = $preparenf ->rowCount();
+if ($conta_busa == 0) {
+  header('Location: http://localhost/files/Lancamentos/index.php?p=15&chave='.$chave);
+  die();
+}else{}
 
 $nota = $preparenf->fetch()
 ?>
@@ -111,16 +117,16 @@ $nota = $preparenf->fetch()
         <input type="number" value="<?php echo $nota['liquido']?>" class="form-control" name="liquido" id="liq" readonly>
       </div>
 
-<div class="col-md-4">
-      <label for="horalanc" class="form-label">Data e Hora do lançamento</label>
-      <input type="datetime-local" name="data" value="<?php echo(date("Y-m-d\TH:i") )?>" class="form-control" id="horalanc">
+      <div class="col-md-4">
+        <label for="horalanc" class="form-label">Data e Hora do lançamento</label>
+        <input type="datetime-local" name="data" value="<?php echo(date("Y-m-d\TH:i") )?>" class="form-control" id="horalanc">
       </div>
 
 
 
-<div class="col-md-4">
-      <label for="periodo" class="form-label">Periodo de operação</label>
-      <input type="text"  value="" class="form-control" id="periodo">
+      <div class="col-md-4">
+        <label for="periodo" class="form-label">Periodo de operação</label>
+        <input type="text"  value="" class="form-control" id="periodo">
       </div>
 
 

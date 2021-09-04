@@ -1,3 +1,11 @@
+    <?php
+    if (isset($_GET['chave'])) {
+      // code...
+      $key = $_GET['chave'];
+    }else{
+      $key = '';
+    }
+    ?>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Cadastro De NF</h1>
@@ -11,7 +19,7 @@
 
           <div class="col-md-12 mb-3">
             <label for="chaveNota" class="form-label">Chave da NF</label>
-            <input type="text" class="form-control" id="chaveNota" value="<?php echo $_GET['chave'];?>" maxlength="44" autofocus >
+            <input type="text" class="form-control" id="chaveNota" value="<?php echo $key ;?>" maxlength="44" autofocus >
             <div class="small mt-2" id="msg">Digite ou leia a nota</div>
           </div>
 
