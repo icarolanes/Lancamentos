@@ -65,7 +65,7 @@
             <div  class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Configuração</button>
               <button type="button" class="btn btn-sm btn-outline-secondary">Relatorios</button>
-              <button type="button" data-bs-toggle="modal" href="#exampleModalToggle" class="btn btn-sm btn-outline-primary">Lançar</button>
+              <button type="button" data-bs-toggle="modal" href="#exampleModalToggle" class="btn btn-sm btn-outline-primary" accesskey="l">Lançar</button>
             </div>
           </div>
         </div>
