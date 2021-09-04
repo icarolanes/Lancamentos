@@ -7,11 +7,11 @@
       </div>
       <div class=" col-sm-12 col-md-12">
 
-        <form oninput="separa_dados();" class="row g-2" method="post" action="func/lanc_enviar.php">
+        <form oninput="separa_dados();" onfocusin="separa_dados();" class="row g-2" method="post" action="func/lanc_enviar.php">
 
           <div class="col-md-12 mb-3">
             <label for="chaveNota" class="form-label">Chave da NF</label>
-            <input type="text" class="form-control" id="chaveNota" value="" maxlength="44" autofocus >
+            <input type="text" class="form-control" id="chaveNota" value="<?php echo $_GET['chave'];?>" maxlength="44" autofocus >
             <div class="small mt-2" id="msg">Digite ou leia a nota</div>
           </div>
 
@@ -61,6 +61,7 @@
             <input type="text" class="form-control" id="DV" readonly>
           </div>
           
+          <button type="submit" form="cd" id="enviar" disabled=""  class="btn btn-primary">Enviar</button>
 
         </form>
       </div>
