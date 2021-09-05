@@ -13,12 +13,10 @@
 		var FEmi	= chave.substring(34,35);
 		var CN		= chave.substring(35,43);
 		var DV		= chave.substring(43,44);
-		//formatação de cnpj
-		cnpj_f = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
 		//retorno para campos
 		document.getElementById('cUF').value       	= cUF;
 		document.getElementById('AME').value 		= AME;
-		document.getElementById('cnpj').value      	= cnpj_f;
+		document.getElementById('cnpj').value      	= valida_cnpj(cnpj);
 		document.getElementById('mod').value       	= mod;
 		document.getElementById('serie').value      = serie;
 		document.getElementById('nNF').value       	= nNF;
@@ -28,7 +26,6 @@
 		//chama função DV da NF
 		verifica_chave();
 	} //fim separa_dados
-
 	function verifica_chave(){
 		var chave_ver 	= (document.getElementById('chaveNota').value);
 		var DV			= chave_ver.substring(43,44);
@@ -62,6 +59,15 @@
 			document.getElementById('msg').innerHTML += ' digitos para chave de acesso' ;
 			document.getElementById('enviar').disabled = true;
 		}//fim DV da NF
+	}
+	//inicialmente somente coloca em formato de cpf e cnpj.
+	function valida_cnpj(cnpj){
+		cnpj_f = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
+		return(cnpj_f);
+	}
+	function valida_cpf(cpf){
+		cpf_f = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4")
+		return(cnpj_f);
 	}
 	/*
 	function campo_maiusculo() {
