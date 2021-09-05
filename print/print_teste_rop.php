@@ -62,8 +62,10 @@
     <?php
   }
   ?>
+</tbody>
+<thead>
   <tr>
-    <td colspan="3"><b>Porões</b></td>
+    <td colspan="3">Porões</td>
     <?php for ($pori=1; $pori <= $poroes['poroes'] ; $pori++) { 
       echo "<td>#".$pori."</td>";
     }
@@ -71,6 +73,8 @@
     <td colspan="2"></td>
     <td colspan="2" >Total</td>
   </tr>
+</thead>
+<tbody>
   <tr>
     <td colspan="3">Total Manifestado</td>
     <?php for ($pori=1; $pori <= $poroes['poroes'] ; $pori++) {    ?>
