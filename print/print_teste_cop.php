@@ -23,7 +23,7 @@
 		<li>Dias corridos,          <?php echo $dados_at['navio'] ?></li>
 	</ul>
 </div>
-<table >
+<table>
 	<thead>
 		<tr>
 			<th rowspan="2" colspan="2">Periodo</th>
@@ -48,9 +48,11 @@
 		while ($datas_ = $prep_d_ope->fetch()) {
 			//while acima é para listar os titulos de dias de operação
 			?>
-			<tr>
-				<th colspan="11"><?php echo datahora($datas_['data_ref'],2);?></th>
-			</tr>
+			<thead>
+				<tr>
+					<th colspan="11"><?php echo datahora($datas_['data_ref'],2);?></th>
+				</tr>
+			</thead>
 			<?php
 
 			//dentro dos periodos, é realizado uma nova consulta para mostrar os periodos dentro do dia. 
