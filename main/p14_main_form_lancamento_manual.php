@@ -67,7 +67,7 @@
 
       ?>
       <div class="container-sm col-sm-12 col-md-10">
-        <form class="row g-2" method="post" action="func/lanc_enviar.php">
+        <form class="row g-2" method="post" action="banco/lanc_enviar.php">
           <div class="col-md-4">
             <label for="" class="form-label">Navio</label>
             <input  type="text" class="form-control" placeholder="nome do navio" disabled value="<?php echo $navio?>" >

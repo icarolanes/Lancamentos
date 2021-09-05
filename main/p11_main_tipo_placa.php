@@ -52,7 +52,7 @@
             <div class="modal-body">
 
 
-             <form method="post" action="func/p11_cad_tipo_placa.php" id="cad_tipo_placa">
+             <form method="post" action="banco/p11_cad_tipo_placa.php" id="cad_tipo_placa">
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Tipo:</label>
                 <input type="text" class="form-control" id="tipo_placa" required>

@@ -27,7 +27,7 @@
           </div>
           <div class="modal-body">
 
-            <form id="xmlform" action="func/p1_import_nf_xml.php" enctype="multipart/form-data" method="post">
+            <form id="xmlform" action="banco/p1_import_nf_xml.php" enctype="multipart/form-data" method="post">
 
               <div class="mb-3">
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>

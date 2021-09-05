@@ -15,7 +15,7 @@
       </div>
       <div class=" col-sm-12 col-md-12">
 
-        <form oninput="separa_dados();" onfocusin="separa_dados();" class="row g-2" method="post" action="func/lanc_enviar.php">
+        <form oninput="separa_dados();" onfocusin="separa_dados();" class="row g-2" method="post" action="banco/lanc_enviar.php">
 
           <div class="col-md-12 col-lg-12 mb-3">
             <label for="chaveNota" class="form-label">Chave da NF</label>

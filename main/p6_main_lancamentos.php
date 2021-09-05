@@ -34,7 +34,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form id="nperi" action="func/periodo_novo.php" method="post">
+                    <form id="nperi" action="banco/periodo_novo.php" method="post">
                       <input type="number" name="atr" value="<?php echo $navio['atraca'];?>" readonly hidden>
                       <input type="text" name="responsavel" value="<?php echo $_SESSION['usuarioId'];?>" readonly hidden>
                       <div class="input-group">

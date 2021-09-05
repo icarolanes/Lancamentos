@@ -1,8 +1,8 @@
 <!doctype html>
   <?php 
   
-  include('func/seguranca.php');
-  include('func/conexao.php');
+  include('banco/seguranca.php');
+  include('banco/conexao.php');
   include('assets/paginas.php');
   include_once('tratamentos.php');
 
@@ -49,7 +49,7 @@
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" >
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="func/sair.php"><?php echo $_SESSION['usuarioLogin'];?></a>
+        <a class="nav-link px-3" href="banco/sair.php"><?php echo $_SESSION['usuarioLogin'];?></a>
       </div>
     </div>
   </header>

@@ -1,6 +1,6 @@
 <?php
 
-include_once("func/conexao.php");
+include_once("banco/conexao.php");
 function retorna($motorista,$con,$icaro){
 
 	$query_mot = "SELECT * from pessoa where cpf = ".$_GET['cpf'];
