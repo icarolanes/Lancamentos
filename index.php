@@ -4,7 +4,7 @@
   include('banco/seguranca.php');
   include('banco/conexao.php');
   include('assets/paginas.php');
-  include_once('tratamentos.php');
+  include_once('funcoes/tratamentos.php');
 
   ?>
   
