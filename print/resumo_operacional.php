@@ -1,14 +1,9 @@
     <html lang="pt-br">
-
-
-    <style type="text/css">
-      @media print{@page {size: landscape}}
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/impressoes.css">
     <meta charset="utf-8">
     <?php
     include('../../conexao.php');
-    include('funcoes.php');
+    include('../funcoes/tratamentos.php');
     function rop($con,$id){
 //Select dados de atracação
       $qporoes = "select poroes from navios where id =".$id." limit 1";
@@ -38,7 +33,7 @@
       (select sum(total) from plano_ope_porao where atracacao = atr.id) as total
       FROM atracacao atr join navios n on atr.navio = n.id join berco b on atr.berco = b.id join lancamentos lanc on lanc.atracacao = atr.id join plano_ope_porao plan on plan.atracacao = atr.id where atr.id = ".$id." group by atr.id";
 
-    
+      
 
       $prep_at = $con->prepare($atracacao_dados);
       $prep_at->execute();

@@ -3,7 +3,7 @@
   <link rel="stylesheet" type="text/css" href="css/impressoes.css">
   <?php
   include('../../conexao.php');
-  include('funcoes.php');
+  include('../funcoes/tratamentos.php');
   function cop($con,$id){
 
 //Select dados de atracação
