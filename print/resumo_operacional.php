@@ -7,11 +7,6 @@
       }
     }
   </style>
-  <script type="text/javascript">
-    window.onbeforeprint = (event) => {
-  console.log('Before print');
-};
-  </script>
   <meta charset="utf-8">
   <?php
   include('../../conexao.php');
@@ -90,7 +85,9 @@
     $prep_doc->execute();
 
     ?>
+    
     <body>
+      <button type="button" onclick="window.print()">IMPRIMIR</button>
       <table class="rop">
         <thead>
           <tr>
@@ -254,11 +251,6 @@ if (isset($_GET['n'])) {
 
 }
 ?>
-<form action="#">
-	
-  <label>ID da atracação</label>
-  <input type="number" name="n">
-  <button type="submit">ok</button>
-</form>
+
 </body>
 </html>

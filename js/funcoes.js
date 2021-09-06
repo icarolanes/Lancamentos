@@ -69,9 +69,14 @@
 		cpf_f = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4")
 		return(cnpj_f);
 	}
-	/*
+	
+	//usando oninput
 	function campo_maiusculo() {
 		var x = document.getElementById("id_campo");
 		x.value = x.value.toUpperCase();
 	}
-	*/
+	//usando onchange no campo use o onchange no campo para mudar informação.
+	function simples_innerHtml() {
+		var x = document.getElementById("mySelect").value;
+		document.getElementById("demo").innerHTML = "You selected: " + x;
+	}

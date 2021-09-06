@@ -64,7 +64,7 @@
             </div>
             <div  class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Configuração</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Relatorios</button>
+              <button type="button" onclick="window.open('print/resumo_operacional.php?n=<?php echo $_GET['n']?>','_blank','scrollbars=yes')" class="btn btn-sm btn-outline-secondary">Relatorio</button>
               <button type="button" data-bs-toggle="modal" href="#exampleModalToggle" class="btn btn-sm btn-outline-primary" accesskey="l">Lançar</button>
             </div>
           </div>
