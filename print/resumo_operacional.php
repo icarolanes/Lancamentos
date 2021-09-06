@@ -145,7 +145,7 @@
            <?php  for ($pori=1; $pori <= $poroes['poroes'] ; $pori++) {  ?>
             <td><?php echo numero($linha['porao'.$pori]); ?></td>
             <?php  $acum_por[$pori] = $acum_por[$pori] +  $linha['porao'.$pori];   }   ?>
-            <td><?php echo $linha['paralizacoes']  ; ?></td>
+            <td class="paralizacao"><?php echo $linha['paralizacoes']  ; ?></td>
             <td><?php echo $linha['tempo']  ; ?></td>
             <td><?php echo numero($linha['total'])?></td>
             <td><?php echo numero($acum = $acum+$linha['total'])?></td>
@@ -230,8 +230,7 @@
     </tr>
     <tr class="obs">
       <td class="obs" colspan="5"><h4>Observações:</h4>
-        <p></p>
-        <p class="auto">
+        <p class="obs">
           <?php 
           $mensagem = obs($soma_manif,$soma_desc,$soma_quebra);
           echo $mensagem['br'];
