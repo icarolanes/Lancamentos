@@ -47,7 +47,7 @@
     <script>
       $('#xmlform').submit(function(e){
         e.preventDefault();
-        //Receber os dados
+        //Receber os dados ..... verificar outra maneira... esse mostra a porcentagem de upload para o navegador, e não a porcentagem enviada para o banco de dados.
         $form = $(this);        
         var formdata = new FormData($form[0]);
         //$form.find('.progress').removeAttr('hidden');
