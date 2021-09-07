@@ -30,7 +30,7 @@
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>
                 <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" >
               </div>
-              <div class="progress progress-striped active">
+              <div hidden class="progress progress-striped active">
                 <div class="progress-bar" style="width: 0%">
                 </div>
               </div>
@@ -50,12 +50,12 @@
         //Receber os dados ..... verificar outra maneira... esse mostra a porcentagem de upload para o navegador, e não a porcentagem enviada para o banco de dados.
         $form = $(this);        
         var formdata = new FormData($form[0]);
-        //$form.find('.progress').removeAttr('hidden');
+        $form.find('.progress').removeAttr('hidden');
         
         //Criar a conexao com o servidor
         var request = new XMLHttpRequest();
         
-        //Progresso do Upload
+        //Progresso do Upload para o navegador
         request.upload.addEventListener('progress', function (e) {
           var percent = Math.round(e.loaded / e.total * 100);
           $form.find('.progress-bar').width(percent + '%').html(percent + '%');
@@ -63,9 +63,9 @@
         
         //Upload completo limpar a barra de progresso
         request.addEventListener('load', function(e){
-          $form.find('.progress-bar').addClass('progress-bar-success').html('upload completo...');
+          $form.find('.progress-bar').addClass('bg-success').html('Envio completo');
           //Atualizar a página após o upload completo
-          setTimeout("window.open(self.location, '_self');", 5000);
+          setTimeout("window.open(self.location, '_self');", 3000);
         });
         
         //Arquivo responsável em fazer o upload da imagem
