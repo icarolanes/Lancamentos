@@ -16,7 +16,6 @@
       include_once ('includes/p1_Lista_NFs.php');
       ?>
     </main>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -26,17 +25,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-
-            <form id="xmlform" action="banco/p1_import_nf_xml.php" enctype="multipart/form-data" method="post">
-
+            <form id="xmlform" action="#" enctype="multipart/form-data" method="post">
               <div class="mb-3">
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>
-                <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" required>
-
+                <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" >
               </div>
-
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </form>
-
             <small>Selecione um ou mais arquivos XML para importar NF</small>
           </div>
           <div class="modal-footer">
@@ -45,4 +42,32 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>    
+    <script>
+      $('#xmlform').submit(function(e){
+        e.preventDefault();
+        //Receber os dados
+        $form = $(this);        
+        var formdata = new FormData($form[0]);
+        
+        //Criar a conexao com o servidor
+        var request = new XMLHttpRequest();
+        
+        //Progresso do Upload
+        request.upload.addEventListener('progress', function (e) {
+          var percent = Math.round(e.loaded / e.total * 100);
+          $form.find('.progress-bar').width(percent + '%').html(percent + '%');
+        });
+        
+        //Upload completo limpar a barra de progresso
+        request.addEventListener('load', function(e){
+          $form.find('.progress-bar').addClass('progress-bar-success').html('upload completo...');
+          //Atualizar a página após o upload completo
+          setTimeout("window.open(self.location, '_self');", 1000);
+        });
+        
+        //Arquivo responsável em fazer o upload da imagem
+        request.open('post', 'banco/p1_import_nf_xml.php');
+        request.send(formdata);
+      });
+    </script>

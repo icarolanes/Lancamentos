@@ -17,12 +17,14 @@
     <meta name="generator" content="Hugo 0.84.0">
     <title>Controle de Movimentação</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
     <script type="text/javascript" src="js/funcoes.js"></script>
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     
     <!-- Bootstrap core CSS -->
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -130,12 +132,12 @@
 
 
 <script type="text/javascript">
-  
+
   <?php
   $hoje =  date("Y-m-d", strtotime("now"));
   $dias =  date("Y-m-d",   strtotime("-5 day"));
 
- 
+
   if ($page_n != 0) {
     // code...
   }else{
