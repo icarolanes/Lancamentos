@@ -30,8 +30,9 @@
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>
                 <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" >
               </div>
-              <div class="progress" hidden>
-                <div class="progress-bar" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress progress-striped active">
+                <div class="progress-bar" style="width: 0%">
+                </div>
               </div>
             </form>
             <small>Selecione um ou mais arquivos XML para importar NF</small>
@@ -49,6 +50,7 @@
         //Receber os dados
         $form = $(this);        
         var formdata = new FormData($form[0]);
+        //$form.find('.progress').removeAttr('hidden');
         
         //Criar a conexao com o servidor
         var request = new XMLHttpRequest();
@@ -56,7 +58,6 @@
         //Progresso do Upload
         request.upload.addEventListener('progress', function (e) {
           var percent = Math.round(e.loaded / e.total * 100);
-          $form.find('.progress').removeAttr('hidden');
           $form.find('.progress-bar').width(percent + '%').html(percent + '%');
         });
         
@@ -64,7 +65,7 @@
         request.addEventListener('load', function(e){
           $form.find('.progress-bar').addClass('progress-bar-success').html('upload completo...');
           //Atualizar a página após o upload completo
-          setTimeout("window.open(self.location, '_self');", 1000);
+          setTimeout("window.open(self.location, '_self');", 5000);
         });
         
         //Arquivo responsável em fazer o upload da imagem
