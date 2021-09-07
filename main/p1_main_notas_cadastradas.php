@@ -30,7 +30,7 @@
                 <label for="formFileSm" class="form-label">Selecione o XML da NF</label>
                 <input class="form-control form-control-sm" type="file"  name="fileToUpload[]" id="formFileSm" multiple="multiple" >
               </div>
-              <div class="progress">
+              <div class="progress" hidden>
                 <div class="progress-bar" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </form>
@@ -56,6 +56,7 @@
         //Progresso do Upload
         request.upload.addEventListener('progress', function (e) {
           var percent = Math.round(e.loaded / e.total * 100);
+          $form.find('.progress').removeAttr('hidden');
           $form.find('.progress-bar').width(percent + '%').html(percent + '%');
         });
         
