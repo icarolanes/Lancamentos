@@ -42,7 +42,6 @@ $querynNF = "SELECT nf.nNF from nf_ident nf where nf.id = ".$_GET['nf'];
                 <td><?php echo $linha['cProd']; ?></td>
                 <td><?php echo $linha['xProd']; ?></td>
                 <td><?php echo $linha['infAdProd']; ?></td>
-                
               </tr>
               <?php
             }
