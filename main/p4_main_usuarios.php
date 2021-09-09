@@ -3,14 +3,11 @@
         <h1 class="h2">Usuarios cadastrados</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Novo</button>
           </div>
         </div>
       </div>
-
   
-
       <h2></h2>
       <div class="table-responsive">
         <table class="table table-hover table-striped table-sm">
@@ -25,31 +22,23 @@
           </thead>
           <tbody>
             <?php 
-
             $queryu = "SELECT * from usuarios u join pessoa p on u.nome = p.id join tipo_usuario tu on u.tipo = tu.id ";
-
-
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();
-
             $cnt = 1;
             while ($linha=$resultado->fetch()) {
               
               ?>
-
               <tr>
                 <td>Abrir</td>
                 <td><?php echo $linha['nome']; ?></td>
                 <td><?php echo $linha['usuario']; ?></td>
                 <td><?php echo $linha['cpf']; ?></td>
                 <td><?php echo $linha['tipo']; ?></td>
-                
               </tr>
-
               <?php
             }
             ?>
-            
           </tbody>
         </table>
       </div>
