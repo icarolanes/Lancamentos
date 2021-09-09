@@ -3,13 +3,12 @@
         <h1 class="h2">Empresas cadastradas</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#cadastro_empresa">Novo</button>
           </div>
         </div>
       </div>
 
-  
+
 
       <h2></h2>
       <div class="table-responsive">
@@ -33,7 +32,7 @@
 
             $cnt = 1;
             while ($linha=$resultado->fetch()) {
-              
+
               ?>
 
               <tr>
@@ -50,5 +49,53 @@
             
           </tbody>
         </table>
+      </div>
+      
+
+      <!-- Modal -->
+      <div class="modal fade" id="cadastro_empresa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Cadastro de empresa </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="form_cad_emp" action="a.php">
+                <div class="mb-3">
+                  <label for="cnpj_cad" class="form-label">CNPJ</label>
+                  <input oninput="busca_cnpj();" type="text" class="form-control" id="cnpj_cad" maxlength="18" autocomplete="off">
+                  <div class="small mt-2" id="or_val"></div>
+                </div>
+                <div class="mb-3">
+                  <label for="razao" class="form-label">Razão Social</label>
+                  <input type="text" class="form-control" id="razao" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="fantasia" class="form-label">Nome Fantazia</label>
+                  <input type="text" class="form-control" id="fantasia" readonly required>
+                </div>
+                <div class="mb-3">
+                  <label for="uf" class="form-label">UF</label>
+                  <input type="text" class="form-control" id="uf" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="cidade" class="form-label">Cidade</label>
+                  <input type="text" class="form-control" id="cidade" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="cep" class="form-label">Cep</label>
+                  <input type="text" class="form-control" id="cep" readonly>
+                </div>
+
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" form="form_cad_emp" id="submit" class="btn btn-primary">Gravar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>

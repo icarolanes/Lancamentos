@@ -16,7 +16,8 @@
 		//retorno para campos
 		document.getElementById('cUF').value       	= cUF;
 		document.getElementById('AME').value 		= AME;
-		document.getElementById('cnpj').value      	= valida_cnpj(cnpj);
+		cnpj = valida_cnpj(cnpj);
+		document.getElementById('cnpj').value      	= cnpj.formatacao;
 		document.getElementById('mod').value       	= mod;
 		document.getElementById('serie').value      = serie;
 		document.getElementById('nNF').value       	= nNF;
@@ -61,15 +62,85 @@
 		}//fim DV da NF
 	}
 	//inicialmente somente coloca em formato de cpf e cnpj.
+
+	function retira_formatacao(valor){
+		var valor = valor.value.replace(/\D+/g, '');
+
+	}
 	function valida_cnpj(cnpj){
-		cnpj_f = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
-		return(cnpj_f);
+		
+		cnpj_ret = new Object();
+		cnpj_ret.formatacao = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
+
+		
+		/*realizar calculo de validação*/
+		if (cnpj.length == 14) {
+			var cnpj14 = cnpj;
+			/*dv1*/
+
+			multiplicadores = ['2','3','4','5','6','7','8','9'];
+			i = 11;
+			soma_ponderada = 0;
+			while (i >= 0) {
+				for (m=0; m< multiplicadores.length && i>=0; m++) {
+					soma_ponderada += cnpj14[i] * multiplicadores[m];
+					i--;
+				}
+			}
+			resto = soma_ponderada % 11;
+			if (resto == '0' || resto == '1') {
+				dv = 0;
+			}else{
+				dv = 11 - resto;
+			}
+			cnpj_nv = cnpj.substring(0,12);
+			cnpj_nv += dv;
+
+			var cnpj14 = cnpj_nv;
+			/*dv1*/
+
+			multiplicadores = ['2','3','4','5','6','7','8','9'];
+			i = 12;
+			soma_ponderada = 0;
+			while (i >= 0) {
+				for (m=0; m< multiplicadores.length && i>=0; m++) {
+					soma_ponderada += cnpj14[i] * multiplicadores[m];
+					i--;
+				}
+			}
+			resto = soma_ponderada % 11;
+			if (resto == '0' || resto == '1') {
+				dv = 0;
+			}else{
+				dv = 11 - resto;
+			}
+			cnpj_nv = cnpj_nv.substring(0,13);
+			cnpj_nv += dv;
+
+			if (cnpj_nv == cnpj) {
+				cnpj_ret.situacao = 1;
+			}
+			else{
+				cnpj_ret.situacao = 0;
+
+			}
+		}else{
+
+		}
+		return(cnpj_ret);
 	}
 	function valida_cpf(cpf){
 		cpf_f = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4")
-		return(cnpj_f);
+		return(cpf_f);
 	}
 	
+
+
+
+
+
+
+
 	//usando oninput
 	function campo_maiusculo() {
 		var x = document.getElementById("id_campo");
@@ -79,4 +150,66 @@
 	function simples_innerHtml() {
 		var x = document.getElementById("mySelect").value;
 		document.getElementById("demo").innerHTML = "You selected: " + x;
+	}
+	function consulta_cep(){
+		consulta_cep_api();
+	}
+
+
+
+	function busca_cnpj(){
+		var cnpj = document.getElementById('cnpj_cad').value.replace(/\D+/g, '');
+		cnpj_ret = valida_cnpj(cnpj);
+		document.getElementById('cnpj_cad').value = cnpj_ret.formatacao;
+		if(cnpj.length == 14){
+			if (cnpj_ret.situacao == 1) {
+				busca_cnpj_api(cnpj);
+				document.getElementById('submit').disabled = false;
+			}else{
+				document.getElementById('or_val').innerHTML = 'CNPJ INVALIDO';
+				document.getElementById('submit').disabled = true;
+				document.getElementById('form_cad_emp').reset();
+				document.getElementById('cnpj_cad').value = cnpj_ret.formatacao;
+			}
+		}
+	}
+
+	/*JS de APIs*/
+	function busca_cnpj_api(cnpj){
+		
+		var url 	= "https://brasilapi.com.br/api/cnpj/v1/"+cnpj;
+		$.ajax({
+			url:url,
+			type:"get",
+			dataType: "json",
+			success:function(dados_cnpj){
+				document.getElementById('razao').value = dados_cnpj.razao_social;
+				document.getElementById('fantasia').value = dados_cnpj.nome_fantasia;
+				document.getElementById('cep').value = dados_cnpj.cep;
+				document.getElementById('uf').value = dados_cnpj.uf;
+				document.getElementById('cidade').value = dados_cnpj.municipio;
+				document.getElementById('or_val').innerHTML = 'Brasil API';
+				if (dados_cnpj.nome_fantasia=='') {
+					document.getElementById('fantasia').readOnly = false;
+					document.getElementById('fantasia').required = true;
+				}else{
+					document.getElementById('fantasia').readOnly = true;
+				}
+			}
+		})
+	}
+
+
+	function consulta_cep_api(){
+		if (busca_cep.length == 8){
+			var url 	= "https://brasilapi.com.br/api/cep/v2/"+busca_cep;
+			$.ajax({
+				url:url,
+				type:"get",
+				dataType: "json",
+				success:function(dados_cep){
+					console.log(dados_cep)
+				}
+			})
+		}
 	}
