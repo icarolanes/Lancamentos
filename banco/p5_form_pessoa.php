@@ -14,9 +14,9 @@ $prepare->execute();
 
 $contar = $prepare->rowCount();
 if ($contar>0) {
-	$_SESSION['mensage'] = 'Cadastrado';
+	$_SESSION['mensagem'] = 'Cadastrado';
 }else{
-	$_SESSION['mensage'] = 'Não cadastrado';
+	$_SESSION['mensagem'] = 'Não cadastrado';
 }
 
 ?>
