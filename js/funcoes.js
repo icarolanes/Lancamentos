@@ -62,22 +62,18 @@
 		}//fim DV da NF
 	}
 	//inicialmente somente coloca em formato de cpf e cnpj.
-
 	function retira_formatacao(valor){
 		var valor = valor.value.replace(/\D+/g, '');
-
 	}
 	function valida_cnpj(cnpj){
 		
 		cnpj_ret = new Object();
 		cnpj_ret.formatacao = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
-
 		
 		/*realizar calculo de validação*/
 		if (cnpj.length == 14) {
 			var cnpj14 = cnpj;
 			/*dv1*/
-
 			multiplicadores = ['2','3','4','5','6','7','8','9'];
 			i = 11;
 			soma_ponderada = 0;
@@ -93,12 +89,11 @@
 			}else{
 				dv = 11 - resto;
 			}
+			/*dv2*/
 			cnpj_nv = cnpj.substring(0,12);
 			cnpj_nv += dv;
-
 			var cnpj14 = cnpj_nv;
 			/*dv1*/
-
 			multiplicadores = ['2','3','4','5','6','7','8','9'];
 			i = 12;
 			soma_ponderada = 0;
@@ -116,31 +111,53 @@
 			}
 			cnpj_nv = cnpj_nv.substring(0,13);
 			cnpj_nv += dv;
-
 			if (cnpj_nv == cnpj) {
 				cnpj_ret.situacao = 1;
 			}
 			else{
 				cnpj_ret.situacao = 0;
-
 			}
 		}else{
-
 		}
 		return(cnpj_ret);
 	}
 	function valida_cpf(cpf){
-		cpf_f = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4")
-		return(cpf_f);
+		document.getElementById("cpf").className = 'form-control';
+		document.getElementById('salvar').disabled = true;
+		cpf_limpo = cpf.replace(/\D+/g, '');
+		cpf_f = cpf_limpo.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4")
+		if(cpf_limpo.length==11){
+			var cpf_red = cpf_limpo.substring(0,9);
+			/*dv1*/
+			i = 8;
+			for(dig=0;dig<2;dig++){
+				multiplicadores = ['2','3','4','5','6','7','8','9','10','11'];
+				soma_ponderada = 0;
+				while (i >= 0) {
+					for (m=0; m< multiplicadores.length && i>=0; m++) {
+						soma_ponderada += cpf_red[i] * multiplicadores[m];
+						i--;
+					}
+				}
+				resto = soma_ponderada % 11;
+				if (resto == '0' || resto == '1') {
+					dv = 0;
+				}else{
+					dv = 11 - resto;
+				}
+				cpf_red += dv;
+				i=9; /* reinicia a variavel para contar um novo valor */
+			}
+			if (cpf_red == cpf_limpo) {
+				document.getElementById('cpf').value = cpf_f;
+				document.getElementById('salvar').disabled = false;
+				document.getElementById("cpf").className = 'form-control is-valid';
+			}else{
+				document.getElementById('salvar').disabled = true;
+				document.getElementById("cpf").className = 'form-control is-invalid';
+			}
+		}
 	}
-	
-
-
-
-
-
-
-
 	//usando oninput
 	function campo_maiusculo() {
 		var x = document.getElementById("id_campo");
@@ -154,9 +171,6 @@
 	function consulta_cep(){
 		consulta_cep_api();
 	}
-
-
-
 	function busca_cnpj(){
 		var cnpj = document.getElementById('cnpj_cad').value.replace(/\D+/g, '');
 		cnpj_ret = valida_cnpj(cnpj);
@@ -173,6 +187,19 @@
 			}
 		}
 	}
+	/*JS de JSON para meu banco*/
+	function busca_motorista(){
+		cpf = document.getElementById('cpf').value;
+		url = "http://localhost/files/lancamentos/funcao.php?cpf="+cpf;
+		$.ajax({
+			url:url,
+			type:"get",
+			dataType:"json",
+			success:function(dados_mot){
+				console.log(dados_mot);
+			}
+		})
+	};
 
 	/*JS de APIs*/
 	function busca_cnpj_api(cnpj){
@@ -198,8 +225,6 @@
 			}
 		})
 	}
-
-
 	function consulta_cep_api(){
 		if (busca_cep.length == 8){
 			var url 	= "https://brasilapi.com.br/api/cep/v2/"+busca_cep;

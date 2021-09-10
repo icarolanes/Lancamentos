@@ -3,14 +3,10 @@
         <h1 class="h2">Pessoas cadastradas</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#nova_pessoa">novo</button>
           </div>
         </div>
       </div>
-
-  
-
       <h2></h2>
       <div class="table-responsive">
         <table class="table table-hover table-striped table-sm">
@@ -24,18 +20,12 @@
           </thead>
           <tbody>
             <?php 
-
             $queryu = "SELECT * from pessoa ";
-// por enquanto SELECT nf.nNF,nf.qtdvol as qtd , em.xNome as emissor , nf.transport as transportadora from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by  nNf;;
-
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();
-
             $cnt = 1;
             while ($linha=$resultado->fetch()) {
-              
               ?>
-
               <tr>
                 <td>Abrir</td>
                 <td><?php echo $linha['nome']; ?></td>
@@ -43,12 +33,45 @@
                 <td><?php echo $linha['cpf']; ?></td>
                 
               </tr>
-
               <?php
             }
             ?>
-            
           </tbody>
         </table>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="nova_pessoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form id="nova_pessoa" action="das.php">
+                <div class="mb-3">
+                  <label for="nome" class="form-label">Nome</label>
+                  <input type="text" class="form-control" id="nome" required>
+                </div>
+                <div class="mb-3">
+                  <label for="sobrenome" class="form-label">Sobrenome</label>
+                  <input type="text" class="form-control" id="sobrenome" required>
+                </div>
+                <div class="mb-3">
+                  <label for="cpf"  class="form-label">CPF</label>
+                  <input type="text" oninput="valida_cpf(value);" class="form-control" id="cpf" maxlength="14">
+                </div>
+
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" id="salvar" form="nova_pessoa" class="btn btn-primary" disabled>Salvar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
