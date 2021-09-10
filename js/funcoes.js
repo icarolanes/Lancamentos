@@ -3,7 +3,7 @@
 		var chave 	= (document.getElementById('chaveNota').value);
 		var cnpj 	= (document.getElementById('cnpj').value);
 		var nNF		= (document.getElementById('nNF').value);
-		//separação de dados
+		//separação de dados 00000002385710000121021515385125221585215758 chave deu positivo porem cnpj está invalido
 		var cUF 	= chave.substring(0,2);
 		var AME 	= chave.substring(2,6);
 		var cnpj 	= chave.substring(6,20);
@@ -29,6 +29,9 @@
 	} //fim separa_dados
 	function verifica_chave(){
 		var chave_ver 	= (document.getElementById('chaveNota').value);
+		var cnpj 		= chave_ver.substring(6,20);
+		cnpj = valida_cnpj(cnpj);
+		cnpj = cnpj.situacao;
 		var DV			= chave_ver.substring(43,44);
 		if(chave_ver.length == 44){
 			var chave43 = chave_ver;
@@ -47,7 +50,12 @@
 			}else{
 				dv = 11 - resto;
 			}
-			if (dv == DV) {
+			if(dv == DV){
+				D1 = 1;
+			}else{
+				D1 = 0;
+			}
+			if (D1 == cnpj) {
 				document.getElementById('msg').innerHTML = "Chave de acesso Válida";
 				document.getElementById('enviar').disabled = false;
 			}else{
@@ -200,7 +208,6 @@
 			}
 		})
 	};
-
 	/*JS de APIs*/
 	function busca_cnpj_api(cnpj){
 		
