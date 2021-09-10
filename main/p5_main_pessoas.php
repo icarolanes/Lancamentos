@@ -39,7 +39,7 @@
             <td><?php echo $linha['nome']; ?></td>
             <td><?php echo $linha['sobrenome']; ?></td>
             <td><?php echo $linha['cpf']; ?></td>
-            
+
           </tr>
           <?php
         }
@@ -89,13 +89,15 @@
           //criar conexao
           var request = new XMLHttpRequest();
 
+
           //conexao de arquivo
           request.open('post','banco/p5_form_pessoa.php');
           request.send(formdata);
+          
           document.getElementById('form_nova_pessoa').reset();
           document.getElementById('fecha_modal').click();
-          console.log(request.readyState);
-          
+          document.location.reload(true);
+
         })
       </script>
     </main>
