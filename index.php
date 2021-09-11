@@ -20,7 +20,7 @@
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script type="text/javascript" src="js/funcoes.js"></script>
+    <script type="text/javascript" src="js/funcoes_v2.js"></script>
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     
