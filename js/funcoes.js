@@ -1,7 +1,7 @@
 	function separa_dados(){
 		//Chave da nota
 		var chave 	= (document.getElementById('chaveNota').value);
-		var cnpj 	= (document.getElementById('cnpj').value);
+		var cnpj 	= (document.getElementById('cnpj_cad').value);
 		var nNF		= (document.getElementById('nNF').value);
 		//separação de dados 00000002385710000121021515385125221585215758 chave deu positivo porem cnpj está invalido
 		var cUF 	= chave.substring(0,2);
@@ -17,7 +17,7 @@
 		document.getElementById('cUF').value       	= cUF;
 		document.getElementById('AME').value 		= AME;
 		cnpj = valida_cnpj(cnpj);
-		document.getElementById('cnpj').value      	= cnpj.formatacao;
+		document.getElementById('cnpj_cad').value      	= cnpj.formatacao;
 		document.getElementById('mod').value       	= mod;
 		document.getElementById('serie').value      = serie;
 		document.getElementById('nNF').value       	= nNF;
@@ -180,12 +180,18 @@
 		consulta_cep_api();
 	}
 	function busca_cnpj(){
+
 		var cnpj = document.getElementById('cnpj_cad').value.replace(/\D+/g, '');
 		cnpj_ret = valida_cnpj(cnpj);
 		document.getElementById('cnpj_cad').value = cnpj_ret.formatacao;
 		if(cnpj.length == 14){
 			if (cnpj_ret.situacao == 1) {
-				busca_cnpj_api(cnpj);
+				local = false
+				if (local == true) {
+					/* buscar local*/
+				}else{
+					busca_cnpj_api(cnpj);
+				}
 				document.getElementById('submit').disabled = false;
 			}else{
 				document.getElementById('or_val').innerHTML = 'CNPJ INVALIDO';
