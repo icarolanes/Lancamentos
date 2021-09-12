@@ -12,10 +12,7 @@
       </button>
     </div>
   </div>
-
   <canvas   class="my-4 w-100" id="por_periodo" width="1000" height="300">Evolução de operação por periodo</canvas>
-
-
   <h3>Ultimos 5 lançamentos</h3>
   <div class="table-responsive">
     <table class="table table-hover table-striped table-sm">
@@ -34,7 +31,6 @@
       </thead>
       <tbody>
         <?php 
-
         $queryu = "SELECT 
         lanc.id               as tipo,
         doc.identificacao     as documento,
@@ -51,21 +47,13 @@
         join documentos doc on doc.id = lanc.documento
         join empresas emp on emp.id = doc.empresa
         join periodos_operacao pope on pope.id = lanc.operacao
-
-
-
         ";
-
         $resultado = $con ->prepare($queryu);
         $resultado ->execute();
-
         $cnt = 1;
         while ($linha=$resultado->fetch()) {
-
-
               // id`, `tipo`, `documento`, `responsavel`, `nf`, `transp`, `motorista`, `placa`, `data`, `periodo`, `tara`, `bruto`, `liquido`, `porao`
           ?>
-
           <tr>
             <td>Abrir</td>
             <td><?php echo $linha['tipo']; ?></td>
@@ -76,13 +64,10 @@
             <td><?php echo date('d/m H:i', strtotime($linha['data'])); ?></td>
             <td><?php echo  periodo($linha['dope'],$linha['periodo']) ?></td>
             <td><?php echo $linha['liquido']; ?></td>
-
           </tr>
-
           <?php
         }
         ?>
-
       </tbody>
     </table>
   </div>
