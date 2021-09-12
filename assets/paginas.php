@@ -15,7 +15,7 @@ $p[9] 	= "main/p9_main_documentos_cadastrados.php";
 $p[10] 	= "main/p10_main_tipo_documento.php";
 $p[11] 	= "main/p11_main_tipo_placa.php";
 $p[12] 	= "main/p12_main_placa.php";
-$p[13] 	= "main/p13_main_lista_formularios.php";
+$p[13] 	= "main/p13_main_lista_formularios.html";
 $p[14] 	= "main/p14_main_form_lancamento.php";
 $p[15] 	= "main/p15_main_form_cadastro_nf.php";
 
