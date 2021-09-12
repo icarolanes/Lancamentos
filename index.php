@@ -5,7 +5,6 @@
   include('banco/conexao.php');
   include('assets/paginas.php');
   include_once('funcoes/tratamentos.php');
-
   ?>
   
   <html lang="pt-br">
@@ -19,10 +18,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <script type="text/javascript" src="js/funcoes_v2.js"></script>
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
     
     <!-- Bootstrap core CSS -->
     <style>
@@ -103,14 +100,11 @@
       </nav>
       <?php
       if (isset($_GET['p'])) {
-
        $page_n = $_GET['p'];
      }else{
-
        $page_n = '0';
      }
      include($p[$page_n]);
-
      ?>
    </div>
  </div>
@@ -118,9 +112,6 @@
 <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-
-
-
 <script type="text/javascript">
   /* globals Chart:false, feather:false */
   (function () {
@@ -128,91 +119,3 @@
     feather.replace({ 'aria-hidden': 'true' })
   })()
 </script>
-
-
-
-<script type="text/javascript">
-
-  <?php
-  $hoje =  date("Y-m-d", strtotime("now"));
-  $dias =  date("Y-m-d",   strtotime("-5 day"));
-
-
-  if ($page_n != 0) {
-    // code...
-  }else{
-
-    $query_chart = "SELECT 
-    sum(lanc.liquido) as liquido,
-    pope.data_ref as periodo ,
-    lper.abv as abv 
-    from lancamentos lanc 
-    join periodos_operacao pope on lanc.periodo = pope.id 
-    join lista_periodos lper on pope.periodo = lper.id 
-    WHERE pope.data_ref BETWEEN '$dias' AND '$hoje'  group by pope.data_ref,pope.periodo  order by pope.data_ref asc  ";
-    $prepare_chart = $con->prepare($query_chart);
-    
-    $prepare_chart->execute();
-    $contar_res = $prepare_chart ->rowCount();
-    $t = 0;
-    $v = 0;
-    while($valores_rel = $prepare_chart->fetch()){
-      $titulo[$t] = date('d/m', strtotime($valores_rel['periodo']))." ".$valores_rel['abv'];
-      
-      $t++;
-      $valor[$v]  = $valores_rel['liquido'];
-      $v++;
-    }
-    ?>
-    
-
-    
-    var ctx = document.getElementById('por_periodo')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-      <?php 
-      for ($i=0; $i < $contar_res ; $i++) { 
-        echo "'".$titulo[$i]."',";
-      }
-      ?>
-      ],
-      datasets: [{
-        data: [
-        <?php 
-        for ($i=0; $i < $contar_res ; $i++) { 
-          echo "'".$valor[$i]."',";
-        }
-        ?>
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      },
-      legend: {
-        display: false
-      }
-    }
-  })
-  <?php 
-
-}
-?>
-</script>
-
-
-
-</html>

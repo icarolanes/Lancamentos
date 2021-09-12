@@ -12,7 +12,9 @@
       </button>
     </div>
   </div>
-  <canvas   class="my-4 w-100" id="por_periodo" width="1000" height="300">Evolução de operação por periodo</canvas>
+  <canvas   class="my-4 w-100" id="myChart" width="1000" height="300">Evolução de operação por periodo</canvas>
+  <script type="text/javascript" src="js/p0_chart.js"></script>
+
   <h3>Ultimos 5 lançamentos</h3>
   <div class="table-responsive">
     <table class="table table-hover table-striped table-sm">
@@ -52,7 +54,6 @@
         $resultado ->execute();
         $cnt = 1;
         while ($linha=$resultado->fetch()) {
-              // id`, `tipo`, `documento`, `responsavel`, `nf`, `transp`, `motorista`, `placa`, `data`, `periodo`, `tara`, `bruto`, `liquido`, `porao`
           ?>
           <tr>
             <td>Abrir</td>
