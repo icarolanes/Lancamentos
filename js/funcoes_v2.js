@@ -62,10 +62,10 @@ function verifica_chave(chave){
 /*valida cnpj*/
 function valida_cnpj(cnpj){
 	cnpj_ret 	= new Object();
-	cnpj.puro 	= retira_formatacao(cnpj);
-	cnpj_ret.formatacao = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
-	cnpj_ret.novo = cnpj_red;
+	cnpj_ret.puro 	= retira_formatacao(cnpj);
+	cnpj_ret.formatacao = cnpj_ret.puro.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,"$1.$2.$3/$4-$5");
 	cnpj_red = cnpj.substring(0,12);
+	cnpj_ret.novo = cnpj_red;
 	var cnpj14 = cnpj;
 	/*dv1*/
 	i = 11;
@@ -84,10 +84,10 @@ function valida_cnpj(cnpj){
 		}else{
 			dv = 11 - resto;
 		}
-		cnpj_red +=dv;
-		i++;	
+		cnpj_ret.novo +=dv;
+		i=12;	
 	}
-	if (cnpj.puro == cnpj_red) {
+	if (cnpj_ret.puro == cnpj_ret.novo) {
 		cnpj_ret.situacao = true;
 	}else{
 		cnpj_ret.situacao = false;
@@ -124,20 +124,16 @@ function valida_cpf(doc){
 		}
 	}
 }
-function busca_cnpj_api(cnpj){
-
+/* APIs Brasil api, para utilizala, coloque na base do formulário e tire o exemplo*/
+function busca_cnpj_api_exemplo(cnpj){
+	var retorno_cnpj = new Object();
+	ajax = new Object();
 	var url 	= "https://brasilapi.com.br/api/cnpj/v1/"+cnpj;
 	$.ajax({
 		url:url,
 		type:"get",
 		dataType: "json",
 		success:function(dados_cnpj){
-			retorno.razao_social = dados_cnpj.razao_social;
-			retorno.nome_fantasia = dados_cnpj.nome_fantasia;
-			retorno.cep = dados_cnpj.cep;
-			retorno.uf = dados_cnpj.uf;
-			retorno.municipio = dados_cnpj.municipio;
-			retorno.origem_dados = 'Brasil API';
 		}
 	})
 }
