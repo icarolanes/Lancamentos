@@ -19,7 +19,7 @@ function cadastra_cep($cep,$con){
 	$uf = $cep['uf'];
 	$cidade = $cep['cidade'];
 	$bairro = $cep['bairro'];
-	$rua = "".$cep['desclog']." ".$cep['logradouro']."";
+	$rua = $cep['logradouro'];
 	$query_cep = "INSERT into lista_cep (`cep`,`estado`,`cidade`,`bairro`,`rua`)
 	VALUES (
 	'$cepn',
@@ -55,4 +55,16 @@ function cadastra_cep($cep,$con){
   $prepare = $con->prepare($query);
   $prepare->execute();
   $contar = $prepare ->rowCount();
+  if ($contar>0) {
+  	
+  	$_SESSION['mensagem'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  	<strong>Cadastrado</strong>
+  	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  	</div>';
+  }else{
+  	$_SESSION['mensagem'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  	<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  	</div>';
+  }
 ?>
