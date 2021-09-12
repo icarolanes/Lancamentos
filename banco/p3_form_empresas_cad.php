@@ -62,8 +62,8 @@ function cadastra_cep($cep,$con){
   	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   	</div>';
   }else{
-  	$_SESSION['mensagem'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  	<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  	$_SESSION['mensagem'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  	<strong>Não cadastrado</strong> Empresa não cadastrada
   	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   	</div>';
   }
