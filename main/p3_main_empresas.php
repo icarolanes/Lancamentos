@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         <?php 
-        $queryu = "SELECT * from empresas";
+        $queryu = "SELECT * from empresas order by xNome";
         $resultado = $con ->prepare($queryu);
         $resultado ->execute();
         $cnt = 1;
