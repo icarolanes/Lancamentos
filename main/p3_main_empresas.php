@@ -7,7 +7,12 @@
           </div>
         </div>
       </div>
-      <?php var_dump($_SESSION['mensagem']); ?>
+      <?php 
+      if (isset($_SESSION['mensagem'])) {
+        echo $_SESSION['mensagem'];
+        unset($_SESSION['mensagem']);
+      }
+      ?>
       <h2></h2>
       <div class="table-responsive">
         <table class="table table-hover table-striped table-sm">
@@ -31,7 +36,7 @@
               <tr>
                 <td>Abrir</td>
                 <td><?php echo $linha['xNome']; ?></td>
-                <td><?php echo $linha['xNome']; ?></td>
+                <td><?php echo $linha['fantasia']; ?></td>
                 <td><?php echo $linha['xCNPJ']; ?></td>
                 
               </tr>
