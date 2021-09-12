@@ -5,15 +5,19 @@ function retorna($cnpj,$con){
 	$prep = $con->prepare($query_em);
 	$prep->execute();
 	$contar = $prep->rowCount();
+	$linha = $prep ->fetch();
 	if ($contar > 0) {
-		$retorno = true;
-		return json_encode($retorno);
+		$retorno['id'] = $linha['id'];
+		$retorno['cnpj'] = $linha['xCNPJ'];
+		$retorno['razao'] = $linha['xNome'];
+		$retorno['fantasia'] = $linha['fantasia'];
+		$retorno['situacao'] = true;
 	}else{
-		$retorno = false;
-		return json_encode($retorno);
+		$retorno['situacao'] = false;
 	}
+		return json_encode($retorno);
 }
 if(isset($_GET['cnpj'])){
- retorna($_GET['cnpj'],$con);
+ echo retorna($_GET['cnpj'],$con);
 }
 ?>

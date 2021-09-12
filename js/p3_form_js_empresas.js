@@ -19,14 +19,15 @@ function cnpj_buscar(doc){
         }
       }
       function busca_cnpj_banco(cnpj){
-       var $cnpj = $("input[name='cnpj_cad']");
-       console.log(cnpj);
+       var $empresa = $("input[name='razao']");
+       var ret_banco;
        $.getJSON('banco/p3_cons_cnpj_banco.php',{
         cnpj: cnpj
       },function(json){
-        retornobc = $empresa.val(json);
+        $empresa = $empresa.val(json.razao);
+        ret_banco = json.situacao;
+        document.getElementById('submit').disabled = true
       });
-      console.log(retornobc) 
      }
      function busca_cnpj_api(cnpj){
       var retorno_cnpj = new Object();
@@ -63,5 +64,4 @@ function cnpj_buscar(doc){
           //conexao arquivo
           request.open('post','banco/p3_form_empresas_cad.php');
           request.send(formdata);
-          console.log(request)
         })
