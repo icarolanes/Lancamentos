@@ -8,10 +8,9 @@
           </div>
         </div>
       </div>
-
-
-      <div class="row">
-        <div class="col-sm-4">
+      
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-3">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Placas</h5>
@@ -20,9 +19,7 @@
             </div>
           </div>
         </div>
-        <br>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Lista de NF</h5>
@@ -31,8 +28,7 @@
             </div>
           </div>
         </div>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Empresas cadastradas</h5>
@@ -41,24 +37,16 @@
             </div>
           </div>
         </div>
-
-      </div>
-      <br>
-      <div class="row">
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Lista de pessoas</h5>
-              <p class="card-text">Lista de pessoas.  Motorista e Usuarios do sistema</p>
+              <p class="card-text">Lista de pessoas cadastradas</p>
               <buttom onclick="window.location.href='index.php?p=5'" class="btn btn-success">Listar</buttom>
             </div>
           </div>
         </div>
-
-        <br>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Navios cadastrados</h5>
@@ -67,10 +55,7 @@
             </div>
           </div>
         </div>
-
-        <br>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Lista de Atracação</h5>
@@ -79,14 +64,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-
-
-      <br>
-      
-      <div class="row">
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Documentos cadastrados</h5>
@@ -95,11 +73,7 @@
             </div>
           </div>
         </div>
-
-
-        <br>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Tipo de Documentos</h5>
@@ -108,9 +82,7 @@
             </div>
           </div>
         </div>
-        <br>
-
-        <div class="col-sm-4">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Tipo Veiculos</h5>
@@ -119,46 +91,32 @@
             </div>
           </div>
         </div>
-
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">...</h5>
+              <p class="card-text">__</p>
+              <button class="btn btn-secondary">Listar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">...</h5>
+              <p class="card-text">__</p>
+              <button class="btn btn-secondary">Listar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">...</h5>
+              <p class="card-text">__</p>
+              <button class="btn btn-secondary">Listar</button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <br>
-      
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">...</h5>
-              <p class="card-text">__</p>
-              <button class="btn btn-secondary">Listar</button>
-            </div>
-          </div>
-        </div>
-
-        <br>
-
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">...</h5>
-              <p class="card-text">__</p>
-              <button class="btn btn-secondary">Listar</button>
-            </div>
-          </div>
-        </div>
-
-        <br>
-
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">...</h5>
-              <p class="card-text">__</p>
-              <button class="btn btn-secondary">Listar</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
     </main>
