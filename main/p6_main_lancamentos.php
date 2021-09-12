@@ -40,7 +40,7 @@
                       <div class="input-group">
                         <span class="input-group-text">Periodo e data</span>
                         <select name="peri" class="form-select" required >
-                          <option>.</option>
+                          <option></option>
                           <?php 
                           $novo_periodo = "select * from lista_periodos";
                           $valores= $con->prepare($novo_periodo);
