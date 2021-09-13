@@ -18,6 +18,7 @@ $p[12] 	= "main/p12_main_placa.php";
 $p[13] 	= "main/p13_main_lista_formularios.html";
 $p[14] 	= "main/p14_main_form_lancamento.php";
 $p[15] 	= "main/p15_main_form_cadastro_nf.php";
-
+$p[16]  = "main/p16_main_resumo_geral.php";
+$p[17]  = "main/p17_main_Lista_lancamentos.php";
 
 ?>
