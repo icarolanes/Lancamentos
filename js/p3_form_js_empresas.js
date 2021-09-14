@@ -5,10 +5,8 @@ function cnpj_buscar(doc) {
   if (cnpj.limpo.length == 14) {
     retorno = valida_cnpj(cnpj.limpo); // valida o cnpj
     if (retorno.situacao == true) {
-      /* se situação positiva, consulta se ja existe*/
+      /* se situação positiva,Busca os dados do cnpj*/
       banco = busca_cnpj_banco(cnpj.limpo);
-      //api = busca_cnpj_api(cnpj.limpo); //busca na api
-    } else {
     }
     /* retornos ao formulario*/
     document.getElementById("cnpj_cad").value = retorno.formatacao;
@@ -48,19 +46,6 @@ function busca_cnpj_banco(cnpj) {
     }
   );
 }
-function busca_cnpj_api(cnpj) {
-  var retorno_cnpj = new Object();
-  ajax = new Object();
-  var url = "https://brasilapi.com.br/api/cnpj/v1/" + cnpj;
-  $.ajax({
-    url: url,
-    type: "get",
-    dataType: "json",
-    success: function (dados_cnpj) {
-      auto_send(dados_cnpj);
-    },
-  });
-}
 /*envio de dados para Edição de cadastro*/
 $("#form_cad_emp").submit(function (e) {
   e.preventDefault();
@@ -75,28 +60,3 @@ $("#form_cad_emp").submit(function (e) {
   document.getElementById("fecha_modal").click();
   document.location.reload(true);
 });
-
-/* cadastrar automaticamente */
-
-function auto_send(empresa) {
-  envio = new Object();
-  envio.cnpj_cad = empresa.cnpj;
-  envio.razao = empresa.razao_social;
-  envio.fantasia = empresa.nome_fantasia;
-  envio.uf = empresa.uf;
-  envio.cidade = empresa.municipio;
-  envio.cep = empresa.cep;
-  envio.bairro = empresa.bairro;
-  envio.desclog = empresa.descricao_tipo_logradouro;
-  envio.logradouro = empresa.logradouro;
-
-  $.ajax({
-    url: "banco/p3_form_empresas_cad.php",
-    type: "POST",
-    data: { data: envio },
-    success: function () {
-      document.getElementById("Retorno_cadastro").innerHTML = "Cadastrada";
-      busca_cnpj_banco(envio.cnpj_cad);
-    },
-  });
-}

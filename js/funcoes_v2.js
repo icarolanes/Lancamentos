@@ -127,7 +127,50 @@ function valida_cpf(doc) {
     return cpf_ret;
   }
 }
-/* APIs Brasil api, para utilizala, coloque na base do formulário e tire o exemplo*/
+/*função brasil api que chama a função de cadastro automatico de empresa no banco de dados*/
+function busca_cnpj_api(cnpj) {
+  var retorno_cnpj = new Object();
+  ajax = new Object();
+  var url = "https://brasilapi.com.br/api/cnpj/v1/" + cnpj;
+  $.ajax({
+    url: url,
+    type: "get",
+    dataType: "json",
+    success: function (dados_cnpj) {
+      document.getElementById("Retorno_cadastro").innerHTML = "Buscando online";
+      setTimeout(function(){
+      document.getElementById("Retorno_cadastro").innerHTML = "Cadastrando";
+
+        auto_send(dados_cnpj);
+      },3000);
+    },
+  });
+}
+function auto_send(empresa) {
+  envio = new Object();
+  envio.cnpj_cad = empresa.cnpj;
+  envio.razao = empresa.razao_social;
+  envio.fantasia = empresa.nome_fantasia;
+  envio.uf = empresa.uf;
+  envio.cidade = empresa.municipio;
+  envio.cep = empresa.cep;
+  envio.bairro = empresa.bairro;
+  envio.desclog = empresa.descricao_tipo_logradouro;
+  envio.logradouro = empresa.logradouro;
+
+  $.ajax({
+    url: "banco/p3_form_empresas_cad.php",
+    type: "POST",
+    data: { data: envio },
+    success: function () {
+      document.getElementById("Retorno_cadastro").innerHTML = "Cadastrada";
+      /*busca_cnpj_banco sempre ficará no arquivo do formulário, pois terá retorno para os campos locais*/
+      busca_cnpj_banco(envio.cnpj_cad);
+    },
+  });
+}
+
+/* Brasil API modelo de consulta*/
 function busca_cnpj_api_exemplo(cnpj) {
   ajax = new Object();
   var url = "https://brasilapi.com.br/api/cnpj/v1/" + cnpj;
@@ -135,7 +178,9 @@ function busca_cnpj_api_exemplo(cnpj) {
     url: url,
     type: "get",
     dataType: "json",
-    success: function (dados_cnpj) {},
+    success: function (dados_cnpj) {
+      console.log(dados_cnpj);
+    },
   });
 }
 function consulta_cep_api() {
