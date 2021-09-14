@@ -39,16 +39,16 @@ function cadastra_cep($cep,$con){
 /*
   "cnpj": "92660604000182",
 */
-  $cep['cep']                       = $_POST['cep'];
-  $cep['desclog'] 					= $_POST['desclog'];
-  $cep['logradouro']                = $_POST['logradouro'];
-  $cep['bairro']                    = $_POST['bairro'];
-  $cep['cidade']                 = $_POST['cidade'];
-  $cep['uf']                        = $_POST['uf'];
+  $cep['cep']                       = $_POST['data']['cep'];
+  $cep['desclog'] 					= $_POST['data']['desclog'];
+  $cep['logradouro']                = $_POST['data']['logradouro'];
+  $cep['bairro']                    = $_POST['data']['bairro'];
+  $cep['cidade']                 = $_POST['data']['cidade'];
+  $cep['uf']                        = $_POST['data']['uf'];
   /*primeiro, verifica se cep já cadastrado*/
-  $razao_social  = $_POST['razao'];
-  $nome_fantasia = $_POST['fantasia'];
-  $cnpj          = preg_replace("/[^0-9]/", "", $_POST['cnpj_cad']); 
+  $razao_social  = $_POST['data']['razao'];
+  $nome_fantasia = $_POST['data']['fantasia'];
+  $cnpj          = preg_replace("/[^0-9]/", "", $_POST['data']['cnpj_cad']); 
   $cep = consultar_cep($cep,$con);
   $query = "INSERT INTO `empresas`(`xCNPJ`, `xNome`, `fantasia`,`cep`) 
   VALUES ('$cnpj','$razao_social','$nome_fantasia','$cep')";
