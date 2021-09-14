@@ -53,6 +53,7 @@ function cnpj_buscar(doc){
           type:"get",
           dataType: "json",
           success:function(dados_cnpj){
+            auto_send(dados_cnpj);
             document.getElementById('fantasia').readOnly = true;
             document.getElementById('razao').value      = dados_cnpj.razao_social;
             document.getElementById('fantasia').value   = dados_cnpj.nome_fantasia;
@@ -72,7 +73,7 @@ function cnpj_buscar(doc){
           }
         })
       }
-      /*envio de dados para cadastro*/
+      /*envio de dados para Edição de cadastro*/
       $("#form_cad_emp").submit(function(e){
         e.preventDefault();
         $form = $(this);
@@ -80,9 +81,35 @@ function cnpj_buscar(doc){
           //cria conexao
           var request = new XMLHttpRequest();
           //conexao arquivo
-          request.open('post','banco/p3_form_empresas_cad.php');
+          request.open('post','banco/p3_form_empresas_editar.php');
           request.send(formdata);
           document.getElementById('form_cad_emp').reset();
           document.getElementById('fecha_modal').click();
           document.location.reload(true);
         })
+
+        /* cadastrar automaticamente */
+
+        function auto_send(empresa) {
+          envio = new Object();
+          envio.cnpj_cad = empresa.cnpj
+          envio.razao = empresa.razao_social
+          envio.fantasia = empresa.nome_fantasia
+          envio.uf = empresa.uf
+          envio.cidade = empresa.municipio
+          envio.cep = empresa.cep
+          envio.bairro = empresa.bairro
+          envio.desclog = empresa.descricao_tipo_logradouro
+          envio.logradouro = empresa.logradouro
+
+           $.ajax({
+             url:'banco/p3_form_empresas_cad.php',
+             type:'POST',
+             data:{data:envio},
+             success: function(result){
+                document.getElementById('Retorno_cadastro').innerHTML = 'Cadastrada';
+           }
+           });
+        
+        }
+        
