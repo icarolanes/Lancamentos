@@ -1,7 +1,7 @@
 <?php
 include_once('../../conexao.php');
 function retorna($cnpj,$con){
-	$query_em = ("SELECT emp.id as id, emp.xCNPJ, emp.xNome, emp.fantasia, cep.cep, cep.estado,cep.cidade,cep.bairro,cep.rua FROM `empresas` emp join `lista_cep` cep on cep.id = emp.cep where xCNPJ = ".$cnpj);
+	$query_em = ("SELECT emp.id as id, emp.xCNPJ, emp.xNome, emp.fantasia, cep.cep, cep.estado,cep.cidade,cep.bairro,cep.rua FROM `empresas` emp left join `lista_cep` cep on cep.id = emp.cep where xCNPJ = ".$cnpj);
 	$prep = $con->prepare($query_em);
 	$prep->execute();
 	$contar = $prep->rowCount();
