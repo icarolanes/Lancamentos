@@ -138,11 +138,11 @@ function busca_cnpj_api(cnpj) {
     dataType: "json",
     success: function (dados_cnpj) {
       document.getElementById("Retorno_cadastro").innerHTML = "Buscando online";
-      setTimeout(function(){
-      document.getElementById("Retorno_cadastro").innerHTML = "Cadastrando";
+      setTimeout(function () {
+        document.getElementById("Retorno_cadastro").innerHTML = "Cadastrando";
 
         auto_send(dados_cnpj);
-      },3000);
+      }, 3000);
     },
   });
 }
