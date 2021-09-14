@@ -59,7 +59,7 @@
             </div>
             <div class="col-md-3 col-lg-3 mb-3">
                 <label for="emissor" class="form-label">Emissor</label>
-                <input type="text" class="form-control" id="razao" readonly>
+                <input type="text" class="form-control" id="razao" name="razao" readonly>
             </div>
 
             <button type="submit" form="cd" id="enviar" disabled="" class="btn btn-primary">Enviar</button>
