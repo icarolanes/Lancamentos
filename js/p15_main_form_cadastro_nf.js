@@ -19,7 +19,7 @@ function cadastro_manual(chave) {
   document.getElementById("CN").value = dados.CN;
   document.getElementById("DV").value = dados.DV;
   //teste: 32210827291400000150550060000162801029334161
-
+  
   if (chave.length == 44) {
     switch (dados.verifica_chave.situacao) {
       case true:
@@ -37,21 +37,17 @@ function cadastro_manual(chave) {
 }
 
 function busca_cnpj_banco(cnpj) {
-    
   var $razao = $("input[name='razao']");
-  var ret_banco;
   $.getJSON(
     "banco/p3_cons_cnpj_banco.php",
     {
       cnpj: cnpj,
     },
     function (json) {
-        console.log(json);
-      ret_banco = json.situacao;
-      if (ret_banco == true) {
+      if (json.situacao == true) {
         $razao = $razao.val(json.razao);
       } else {
-          $razao = "Empresa não cadastrada";
+        $razao = $razao.val("Empresa não cadastrada");
       }
     }
   );
