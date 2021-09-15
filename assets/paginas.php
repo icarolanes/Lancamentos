@@ -1,8 +1,7 @@
 <?php
 //lista de paginas para não encher muito o arquivo index
-
-
-$p[0] 	= "main/p0_main_principal.php";
+$p[0]['nome'] 	= "inicio";
+$p[0]['arquivo'] 	= "main/p0_main_principal.php";
 $p[1] 	= "main/p1_main_notas_cadastradas.php";
 $p[2] 	= "main/p2_main_itens_de_notas.php";
 $p[3] 	= "main/p3_main_empresas.php";
@@ -20,5 +19,10 @@ $p[14] 	= "main/p14_main_form_lancamento.php";
 $p[15] 	= "main/p15_main_form_cadastro_nf.php";
 $p[16]  = "main/p16_main_resumo_geral.php";
 $p[17]  = "main/p17_main_Lista_lancamentos.php";
+$rota = explode("/",$_GET['url'] ?? 'index.php');
+var_dump($rota);
+if(file_exists("main/{$rota[0]['arquivo']}.php")){
 
+    $page_n = $_GET['p'] ?? '0';
+}
 ?>
