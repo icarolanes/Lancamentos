@@ -12,18 +12,32 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-5 g-4">
-
+    <div class="row row-cols-1 row-cols-sm-3 g-4">
         <div class="col">
             <div class="card h-100">
                 <h5 class="card-header">Manifestado</h5>
                 <div class="card-body">
-                    <h5 class="card-title">5.000.000</h5>
+                    <h5 class="card-title" id="manifestado">MAN</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <h5 class="card-header">Descarregado</h5>
+                <div class="card-body">
+                    <h5 class="card-title" id="descarregado">MAN</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <h5 class="card-header">Saldo</h5>
+                <div class="card-body">
+                    <h5 class="card-title" id="saldo">MAN</h5>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="table-responsive">
         <table class="table table-hover table-striped table-sm">
             <thead>
@@ -35,15 +49,13 @@
             </thead>
             <tbody>
                 <?php 
-
-    $queryu = "SELECT  td.identificacao as tipo, d.identificacao, em.xCNPJ as cnpj, em.xNome as empresa, a.Natraca as atracacao, n.Nnome as navio, d.manifestado  from documentos d join empresas em on d.empresa = em.id join atracacao a on d.atracacao = a.id join navios n on a.navio = d.atracacao join tipo_doc td on d.tipo = td.id where a.id = ".$_GET['n'];
-
-    $resultado = $con ->prepare($queryu);
-    $resultado ->execute();
-    $sum_manifestado = 0;
-    $sum_descarregado = 0;
-    $sum_saldo = 0;
-    while ($linha=$resultado->fetch()) {
+                $queryu = ("CALL resumo_geral(1)");
+                $resultado = $con ->prepare($queryu);
+                $resultado ->execute();
+                $sum_manifestado = 0;
+                $sum_descarregado = 0;
+                $sum_saldo = 0;
+                while ($linha=$resultado->fetch()) {
       ?>
                 <tr>
                     <td><?php echo $linha['identificacao']; ?></td>
@@ -51,20 +63,66 @@
                     <td><?php $sum_manifestado +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
                     <td><?php $sum_descarregado +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
                     <td><?php $sum_saldo +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
-
                 </tr>
-
                 <?php
     }
+    $resultado->closeCursor();
     ?>
                 <tr>
                     <td colspan="2"><b>TOTAL</b></td>
-                    <td><b><?php echo $sum_manifestado; ?></b></td>
-                    <td><b><?php echo $sum_descarregado; ?></b></td>
-                    <td><b><?php echo $sum_saldo; ?></b></td>
+                    <td id="soma_manifestado"><b><?php echo $sum_manifestado; ?></b></td>
+                    <td id="soma_descarregado"><b><?php echo $sum_descarregado; ?></b></td>
+                    <td id="soma_saldo"><b><?php echo $sum_saldo; ?></b></td>
                 </tr>
-
             </tbody>
         </table>
     </div>
+    <div class="row row-cols-1 row-cols-sm-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <h5 class="card-header">Resumo de saída</h5>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Dia</th>
+                                <th>Periodo</th>
+                                <th>Veiculos</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $res_per = "call res_saida_periodo(1)";
+                            $pre_per = $con->prepare($res_per);
+                            $pre_per->execute();
+                            $soma_total = 0;
+                            $soma_veiculos = 0;
+                            while ($periodo = $pre_per->fetch()) {
+                                ?>
+                            <tr>
+                                <td><?php echo $periodo['data_ref'];?></td>
+                                <td><?php echo $periodo['periodo'];?></td>
+                                <td><?php $soma_total +=$periodo['total']; echo $periodo['total'];?></td>
+                                <td><?php $soma_veiculos +=$periodo['veiculos']; echo $periodo['veiculos'];?></td>
+                            </tr>
+                            <?php
+                            }
+                            $pre_per->closeCursor()
+                            ?>
+                            <tr>
+                                <th colspan='2'>Totais</th>
+                                <th><?php echo $soma_total;?></th>
+                                <th><?php echo $soma_veiculos;?></th>
+                            </tr>
+                        </tbody>
+                </div>
+            </div>
+        </div>
+        </table>
+        <script>
+        document.getElementById('manifestado').innerHTML = document.getElementById('soma_manifestado').innerHTML;
+        document.getElementById('descarregado').innerHTML = document.getElementById('soma_descarregado').innerHTML;
+        document.getElementById('saldo').innerHTML = document.getElementById('soma_saldo').innerHTML;
+        </script>
 </main>
