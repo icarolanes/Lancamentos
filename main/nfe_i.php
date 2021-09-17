@@ -1,4 +1,7 @@
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<?php 
+$nf = $rota[1];
+?>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Item de notas</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -8,7 +11,7 @@
         </div>
       </div>
       <?php 
-$querynNF = "SELECT nf.nNF from nf_ident nf where nf.id = ".$_GET['nf'];
+$querynNF = "SELECT nf.nNF from nf_ident nf where nf.id = {$nf}";
             $result = $con ->prepare($querynNF);
             $result ->execute();
             $nota=$result->fetch()
@@ -27,8 +30,7 @@ $querynNF = "SELECT nf.nNF from nf_ident nf where nf.id = ".$_GET['nf'];
           </thead>
           <tbody>
             <?php 
-            $queryu = "SELECT * from nf_itens where nf_id = ".$_GET['nf'].";
-            ";
+            $queryu = "SELECT * from nf_itens where nf_id = {$nf}";
 // por enquanto SELECT nf.nNF,nf.qtdvol as qtd , em.xNome as emissor , nf.transport as transportadora from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by  nNf;;
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();

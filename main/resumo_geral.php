@@ -1,4 +1,7 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <?php 
+$navio = $rota[1];
+?>
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">MV:</h1>
@@ -6,13 +9,14 @@
             <div class="btn-group me-2">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Novo Período</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">Configuração</button>
-                <button type="button" onclick="window.location.href='index.php?p=17&n=<?php echo $_GET['n']?>'"
+                <button type="button" onclick="window.location.href='lancamentos-<?php echo $navio?>'"
                     class="btn btn-sm btn-outline-secondary">Lançamentos</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Lançar</button>
+                <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                    href="#lancar_carga">Lançar</button>
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3  row-cols-lg-4 g-4 justify-content-between">
         <div class="col">
             <div class="card h-100">
                 <h5 class="card-header">Manifestado</h5>
@@ -49,7 +53,7 @@
             </thead>
             <tbody>
                 <?php 
-                $queryu = ("CALL resumo_geral(1)");
+                $queryu = ("CALL resumo_geral({$navio})");
                 $resultado = $con ->prepare($queryu);
                 $resultado ->execute();
                 $sum_manifestado = 0;
@@ -58,11 +62,15 @@
                 while ($linha=$resultado->fetch()) {
       ?>
                 <tr>
-                    <td><?php echo $linha['identificacao']; ?></td>
+                    <td hidden class="documento_id"><?php echo $linha['id']; ?></td>
+                    <td class="documento"><?php echo $linha['identificacao']; ?></td>
                     <td title="<?php echo $linha['empresa']; ?>"><?php echo $linha['cnpj']; ?></td>
-                    <td><?php $sum_manifestado +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
-                    <td><?php $sum_descarregado +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
-                    <td><?php $sum_saldo +=$linha['manifestado'];  echo $linha['manifestado']; ?></td>
+                    <td class="manifestado">
+                        <?php $sum_manifestado +=$linha['manifestado'];  echo numero($linha['manifestado']); ?></td>
+                    <td class="descarregado">
+                        <?php $sum_descarregado +=$linha['manifestado'];  echo numero($linha['manifestado']); ?></td>
+                    <td class="saldo"><?php $sum_saldo +=$linha['manifestado'];  echo numero($linha['manifestado']); ?>
+                    </td>
                 </tr>
                 <?php
     }
@@ -77,7 +85,8 @@
             </tbody>
         </table>
     </div>
-    <div class="row row-cols-1 row-cols-sm-3 g-4">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
         <div class="col">
             <div class="card h-100">
                 <h5 class="card-header">Resumo de saída</h5>
@@ -93,7 +102,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            $res_per = "call res_saida_periodo(1)";
+                            $res_per = "call res_saida_periodo({$navio})";
                             $pre_per = $con->prepare($res_per);
                             $pre_per->execute();
                             $soma_total = 0;
@@ -116,13 +125,73 @@
                                 <th><?php echo $soma_veiculos;?></th>
                             </tr>
                         </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        </table>
-        <script>
-        document.getElementById('manifestado').innerHTML = document.getElementById('soma_manifestado').innerHTML;
-        document.getElementById('descarregado').innerHTML = document.getElementById('soma_descarregado').innerHTML;
-        document.getElementById('saldo').innerHTML = document.getElementById('soma_saldo').innerHTML;
-        </script>
+    </div>
+
+
+
+    <div class="modal fade" id="lancar_carga" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Enviar Movimentação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cad_norm" action="envio_lancamento" method="post">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Documento:</label>
+                            <select id="documentos" class="form-select" id="inputGroupSelect01">
+                                <option selected>Selecione...</option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Enviar com Nota fiscal</button>
+                    <button class="btn btn-success" type="submit" form="cad_norm">Lançar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Hide this modal and show the first with the button below.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#lancar_carga" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Back to first</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('manifestado').innerHTML = document.getElementById('soma_manifestado').innerHTML;
+    document.getElementById('descarregado').innerHTML = document.getElementById('soma_descarregado').innerHTML;
+    document.getElementById('saldo').innerHTML = document.getElementById('soma_saldo').innerHTML;
+    selectEl = document.getElementById('documentos');
+    documento = document.getElementsByClassName("documento");
+    documento_id = document.getElementsByClassName("documento_id");
+    var lista = [];
+
+    for (co = 0; co < documento.length; co++) {
+        lista.push(documento[co].innerText)
+        selectEl.options.add(new Option(documento[co].innerText, documento_id[co].innerText));
+    }
+    </script>
+
 </main>

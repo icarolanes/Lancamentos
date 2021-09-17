@@ -61,3 +61,6 @@ function grafico(val_1,val_2,val_3) {
     }
   })
 }
+setInterval(function(){ 
+
+}, 3000);

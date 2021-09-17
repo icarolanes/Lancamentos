@@ -3,8 +3,14 @@
   
   include('banco/seguranca.php');
   include('banco/conexao.php');
-  include('assets/paginas.php');
   include_once('funcoes/tratamentos.php');
+
+  $rota = explode("-",$_GET['url'] ?? 'index');
+    if(file_exists("main/{$rota[0]}.php")){
+      $pagina = "main/{$rota[0]}.php";
+  }else{
+      $pagina = "main/principal.php";
+  }
   ?>
 
 <html lang="pt-br">
@@ -63,21 +69,21 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="index.php">
+                            <a class="nav-link " aria-current="page" href=".">
                                 <span data-feather="home"></span>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?p=6">
+                            <a class="nav-link" href="operacao">
                                 <span data-feather="bar-chart-2"></span>
-                                Lançamentos
+                                Operação
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?p=13">
+                            <a class="nav-link" href="geral">
                                 <span data-feather="settings"></span>
-                                Cadastros
+                                Geral
                             </a>
                         </li>
                     </ul>
@@ -90,13 +96,13 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?p=4">
+                            <a class="nav-link" href="usuarios">
                                 <span data-feather="users"></span>
                                 Usuários
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?p=8">
+                            <a class="nav-link" href="atracacoes">
                                 <span data-feather="anchor"></span>
                                 Atracação
                             </a>
@@ -105,7 +111,7 @@
                 </div>
             </nav>
             <?php
-     include($p[$page_n]['arquivo']);
+     include($pagina);
      ?>
         </div>
     </div>

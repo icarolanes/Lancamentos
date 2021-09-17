@@ -39,7 +39,7 @@
                         </div>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Third group">
                             <button type="button"
-                                onclick="window.location.href='index.php?p=16&n=<?php echo $atracacao['id']?>'"
+                                onclick="window.location.href='resumo_geral-<?php echo $atracacao['id']?>'"
                                 class="btn btn-outline-success">Abrir</button>
                         </div>
                     </div>
