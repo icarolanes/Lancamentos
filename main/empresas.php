@@ -10,11 +10,11 @@
         </div>
     </div>
     <?php 
-  if (isset($_SESSION['mensagem'])) {
-    echo $_SESSION['mensagem'];
-    unset($_SESSION['mensagem']);
-  }
-  ?>
+    if (isset($_SESSION['mensagem'])) {
+        echo $_SESSION['mensagem'];
+        unset($_SESSION['mensagem']);
+    }
+    ?>
     <h2></h2>
     <div class="table-responsive">
         <table class="table table-hover table-striped table-sm">
@@ -28,12 +28,12 @@
             </thead>
             <tbody>
                 <?php 
-        $queryu = "SELECT * from empresas order by xNome";
-        $resultado = $con ->prepare($queryu);
-        $resultado ->execute();
-        $cnt = 1;
-        while ($linha=$resultado->fetch()) {
-          ?>
+                $queryu = "SELECT * from empresas order by xNome";
+                $resultado = $con ->prepare($queryu);
+                $resultado ->execute();
+                $cnt = 1;
+                while ($linha=$resultado->fetch()) {
+                  ?>
                 <tr>
                     <td>Abrir</td>
                     <td><?php echo $linha['xNome']; ?></td>
@@ -42,8 +42,8 @@
 
                 </tr>
                 <?php
-        }
-        ?>
+            }
+            ?>
 
             </tbody>
         </table>
@@ -63,8 +63,8 @@
                     <form method="post" id="form_cad_emp" action="a.php">
                         <div class="mb-3">
                             <label for="cnpj_cad" class="form-label">CNPJ</label>
-                            <input type="text" oninput="cnpj_buscar(value);" class="form-control" id="cnpj_cad"
-                                name="cnpj_cad" maxlength="18" autocomplete="off">
+                            <input inputmode="numeric" type="text" oninput="cnpj_buscar(value);" class="form-control"
+                                id="cnpj_cad" name="cnpj_cad" maxlength="18" autocomplete="off">
                             <div class="small mt-2" id="or_val"></div>
                         </div>
                         <div class="mb-3">
