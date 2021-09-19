@@ -35,7 +35,8 @@
                         <div class="btn-group me-2 btn-group-sm" role="group" aria-label="First group">
                             <button type="button" class="btn btn-outline-secondary">COP</button>
                             <button type="button" class="btn btn-outline-secondary">SOF</button>
-                            <button type="button" class="btn btn-outline-secondary">ROP</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="window.open('print/resumo_operacional.php?n=1', '_blank', 'toolbar=0,location=0,menubar=0');
+">ROP</button>
                         </div>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Third group">
                             <button type="button"
