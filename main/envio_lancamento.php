@@ -1,5 +1,4 @@
-<?php 
-      /*função de buscar e verificar se ja está cadastrado a placa*/
+<?php      /*função de buscar e verificar se ja está cadastrado a placa*/
 function busca_carreta ($cavalo,$con){
         $select = "SELECT * FROM placas where placa like '".$cavalo."' limit 1";
         $prepare_placa = $con->prepare($select);
@@ -36,24 +35,10 @@ function cadastra_carreta ($carreta,$con){
         <h1 class="h2">Lançamento de dados</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div>
         </div>
     </div>
-    <script type='text/javascript'>
-    //função de buscar nome de motorista com o cpf
-    $(document).ready(function() {
-        $("input[name='cpf']").blur(function() {
-            var $motorista = $("input[name='motorista']");
-            $.getJSON('funcao.php', {
-                cpf: $(this).val()
-            }, function(json) {
-                $motorista.val(json.motorista);
-            });
-        });
-    });
-    </script>
+
     <div class="container-sm col-sm-12 col-md-10">
         <form class="row g-2" method="post" action="banco/lanc_enviar.php">
             <div class="col-md-4">
@@ -144,3 +129,17 @@ function cadastra_carreta ($carreta,$con){
         </form>
     </div>
 </main>
+
+<script type='text/javascript'>
+//função de buscar nome de motorista com o cpf
+$(document).ready(function() {
+    $("input[name='cpf']").blur(function() {
+        var $motorista = $("input[name='motorista']");
+        $.getJSON('funcao.php', {
+            cpf: $(this).val()
+        }, function(json) {
+            $motorista.val(json.motorista);
+        });
+    });
+});
+</script>
