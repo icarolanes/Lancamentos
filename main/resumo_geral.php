@@ -4,10 +4,10 @@ $navio = $rota[1];
 ?>
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">MV:</h1>
+        <h1 class="h2" id="Nnavio">MV:</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Novo Período</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#novo_periodo" >Novo Período</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">Configuração</button>
                 <button type="button" onclick="window.location.href='lancamentos-<?php echo $navio?>'"
                     class="btn btn-sm btn-outline-secondary">Lançamentos</button>
@@ -62,14 +62,15 @@ $navio = $rota[1];
                 while ($linha=$resultado->fetch()) {
       ?>
                 <tr>
+                    <td hidden class="Nnavio"><?php echo $linha['navio']; ?></td>
                     <td hidden class="documento_id"><?php echo $linha['id']; ?></td>
                     <td class="documento"><?php echo $linha['identificacao']; ?></td>
                     <td title="<?php echo $linha['empresa']; ?>"><?php echo $linha['cnpj']; ?></td>
                     <td class="manifestado">
                         <?php $sum_manifestado +=$linha['manifestado'];  echo numero($linha['manifestado']); ?></td>
                     <td class="descarregado">
-                        <?php $sum_descarregado +=$linha['manifestado'];  echo numero($linha['manifestado']); ?></td>
-                    <td class="saldo"><?php $sum_saldo +=$linha['manifestado'];  echo numero($linha['manifestado']); ?>
+                        <?php $sum_descarregado +=$linha['descarregado'];  echo numero($linha['descarregado']); ?></td>
+                    <td class="saldo"><?php $sum_saldo +=$linha['saldo'];  echo numero($linha['saldo']); ?>
                     </td>
                 </tr>
                 <?php
@@ -78,15 +79,14 @@ $navio = $rota[1];
     ?>
                 <tr>
                     <td colspan="2"><b>TOTAL</b></td>
-                    <td id="soma_manifestado"><b><?php echo $sum_manifestado; ?></b></td>
-                    <td id="soma_descarregado"><b><?php echo $sum_descarregado; ?></b></td>
-                    <td id="soma_saldo"><b><?php echo $sum_saldo; ?></b></td>
+                    <td id="soma_manifestado"><b><?php echo numero($sum_manifestado); ?></b></td>
+                    <td id="soma_descarregado"><b><?php echo numero($sum_descarregado); ?></b></td>
+                    <td id="soma_saldo"><b><?php echo numero($sum_saldo); ?></b></td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
         <div class="col">
             <div class="card h-100">
                 <h5 class="card-header">Resumo de saída</h5>
@@ -112,7 +112,7 @@ $navio = $rota[1];
                             <tr>
                                 <td><?php echo $periodo['data_ref'];?></td>
                                 <td><?php echo $periodo['periodo'];?></td>
-                                <td><?php $soma_total +=$periodo['total']; echo $periodo['total'];?></td>
+                                <td><?php $soma_total +=$periodo['total']; echo numero($periodo['total']);?></td>
                                 <td><?php $soma_veiculos +=$periodo['veiculos']; echo $periodo['veiculos'];?></td>
                             </tr>
                             <?php
@@ -121,7 +121,7 @@ $navio = $rota[1];
                             ?>
                             <tr>
                                 <th colspan='2'>Totais</th>
-                                <th><?php echo $soma_total;?></th>
+                                <th><?php echo numero($soma_total);?></th>
                                 <th><?php echo $soma_veiculos;?></th>
                             </tr>
                         </tbody>
@@ -131,7 +131,26 @@ $navio = $rota[1];
         </div>
     </div>
 
+    <!-- Button trigger modal -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="novo_periodo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="lancar_carga" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
         tabindex="-1">
@@ -149,7 +168,6 @@ $navio = $rota[1];
                                 <option selected>Selecione...</option>
                             </select>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -178,7 +196,6 @@ $navio = $rota[1];
             </div>
         </div>
     </div>
-
     <script>
     document.getElementById('manifestado').innerHTML = document.getElementById('soma_manifestado').innerHTML;
     document.getElementById('descarregado').innerHTML = document.getElementById('soma_descarregado').innerHTML;
@@ -186,12 +203,13 @@ $navio = $rota[1];
     selectEl = document.getElementById('documentos');
     documento = document.getElementsByClassName("documento");
     documento_id = document.getElementsByClassName("documento_id");
+    nomeNavio = document.getElementsByClassName("Nnavio");
+    Nnavio = document.getElementsByClassName("Nnavio");
+    document.getElementById('Nnavio').innerHTML = 'MV: ' + Nnavio[0].innerHTML;
     var lista = [];
-
     for (co = 0; co < documento.length; co++) {
         lista.push(documento[co].innerText)
         selectEl.options.add(new Option(documento[co].innerText, documento_id[co].innerText));
     }
     </script>
-
 </main>
