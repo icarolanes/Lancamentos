@@ -1,10 +1,8 @@
 <!doctype html>
 <?php 
-  
   include('banco/seguranca.php');
   include('banco/conexao.php');
   include_once('funcoes/tratamentos.php');
-
   $rota = explode("-",$_GET['url'] ?? 'index');
     if(file_exists("main/{$rota[0]}.php")){
       $pagina = "main/{$rota[0]}.php";
@@ -12,7 +10,6 @@
       $pagina = "main/principal.php";
   }
   ?>
-
 <html lang="pt-br">
 
 <head>
@@ -27,7 +24,6 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="js/funcoes_v2.js"></script>
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Bootstrap core CSS -->
     <style>
     .bd-placeholder-img {
