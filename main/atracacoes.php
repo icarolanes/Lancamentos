@@ -4,11 +4,11 @@
             <h1 class="h2">Controle de Atracações</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group me-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Nova Atracação</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#cad_atracacao">Nova Atracação</button>
                 </div>
             </div>
         </div>
-        <h2></h2>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm">
                 <thead>
@@ -25,7 +25,6 @@
                 <tbody>
                     <?php 
             $queryu = "SELECT n.Nnome as navio, Natraca, Datracacao, ope1, ope2, Ddesatracacao  from atracacao a join navios n on n.id = a.navio ";
-// por enquanto SELECT nf.nNF,nf.qtdvol as qtd , em.xNome as emissor , nf.transport as transportadora from nf_ident nf JOIN nf_itens it JOIN empresas em on nf.emissor = em.id GROUP by  nNf;;
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();
             $cnt = 1;
@@ -47,3 +46,6 @@
             </table>
         </div>
     </main>
+    <?php 
+    include_once('Modais.html');
+    ?>

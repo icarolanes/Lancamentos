@@ -4,7 +4,8 @@
         <h1 class="h2">Operações</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Nova Operação</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                    data-bs-target="#cad_atracacao">Nova Atracação</button>
             </div>
         </div>
     </div>
@@ -86,3 +87,7 @@
     ?>
     </div>
 </main>
+
+<?php 
+include_once('Modais.html');
+?>
