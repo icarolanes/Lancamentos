@@ -6,8 +6,11 @@
   $rota = explode("-",$_GET['url'] ?? 'index');
     if(file_exists("main/{$rota[0]}.php")){
       $pagina = "main/{$rota[0]}.php";
-  }else{
+  }elseif(file_exists("main/{$rota[0]}.html")){
+      $pagina = "main/{$rota[0]}.html";
+    }else{
       $pagina = "main/principal.php";
+
   }
   ?>
 <html lang="pt-br">
