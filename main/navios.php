@@ -21,13 +21,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
             $queryu = "SELECT * from navios ";
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();
             $cnt = 1;
             while ($linha=$resultado->fetch()) {
-              ?>
+                ?>
                     <tr>
                         <td>Abrir</td>
                         <td><?php echo $linha['Nnome']; ?></td>

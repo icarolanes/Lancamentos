@@ -1,0 +1,33 @@
+<!-- Modal de cadastro de atracação -->
+<div class="modal fade" id="cad_atracacao" tabindex="-1" aria-labelledby="cad_atracacaoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cad_atracacaoLabel">Cadastro de atracação</h5>
+        <button id="fecha_modal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="#" id="nova_atracacao">
+          <div class="mb-3">
+            <label for="operacao" class="form-label">Operação</label>
+            <input type="text" class="form-control" name="operacao" id="operacao" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="Natracacao" class="form-label">Atracação</label>
+            <input type="text" class="form-control" name="Natracacao" id="Natracacao" placeholder="00/21">
+          </div>
+          <div class="mb-3">
+            <label for="imo" class="form-label">Imo</label>
+            <input type="number" class="form-control" name="imo" id="imo" minlength="9" maxlength="9"
+              placeholder="9525338">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="nova_atracacao" class="btn btn-primary">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/form_cad_atracacao.js"></script>

@@ -9,6 +9,8 @@
                 </div>
             </div>
         </div>
+        <div id="mensagem"></div>
+
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm">
                 <thead>
@@ -23,13 +25,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
             $queryu = "SELECT n.Nnome as navio, Natraca, Datracacao, ope1, ope2, Ddesatracacao  from atracacao a join navios n on n.id = a.navio ";
             $resultado = $con ->prepare($queryu);
             $resultado ->execute();
             $cnt = 1;
             while ($linha=$resultado->fetch()) {
-              ?>
+                ?>
                     <tr>
                         <td>Abrir</td>
                         <td><?php echo $linha['navio']; ?></td>
@@ -46,6 +48,6 @@
             </table>
         </div>
     </main>
-    <?php 
+    <?php
     include_once('Modais.html');
     ?>
