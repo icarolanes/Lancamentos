@@ -9,8 +9,6 @@
                 </div>
             </div>
         </div>
-        <div id="mensagem"></div>
-
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm">
                 <thead>
@@ -47,7 +45,7 @@
                 </tbody>
             </table>
         </div>
-    </main>
     <?php
-    include_once('Modais.html');
+    include_once('Modais.php');
     ?>
+    </main>
