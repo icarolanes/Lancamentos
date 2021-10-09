@@ -2,17 +2,40 @@ $("#nova_atracacao").submit(function (e) {
     e.preventDefault();
     $form = $(this);
     var formdata = new FormData($form[0]);
-    console.log($form);
+
     //criar conexao
-    /*
-        request.open("post", "banco/atracacao_editar.php");
-        request.send(formdata);
-    */
+    //request.open("post", "banco/atracacao_editar.php");
+    //request.send(formdata);
+    //console.log(request);
     document.getElementById("nova_atracacao").reset();
     document.getElementById("fecha_modal").click();
-    //document.location.reload(true);
-    $("#mensagem").append('<div class="alert alert-warning alert-dismissible fade show" role="alert">    <strong>Holy guacamole!</strong> You should check in on some of those fields below.    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>  </div>');
-})
+    //toast de mensagem: cadastro com sucesso
+    var myAlert = document.getElementById('liveToast');//select id of toast
+    var texto_toast = "Atracação cadastrada com sucesso!";
+    document.getElementById('mensagem').innerHTML = texto_toast;
+    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+    bsAlert.show();//show it
+});
+
+$("#nova_operacao").submit(function (e) {
+    e.preventDefault();
+    $form = $(this);
+    var formdata = new FormData($form[0]);
+
+    //criar conexao
+    //request.open("post", "banco/operacao_cadastrar.php");
+    //request.send(formdata);
+    //console.log(request);
+    document.getElementById("nova_operacao").reset();
+    document.getElementById("fecha_modal2").click();
+    //toast de mensagem: cadastro com sucesso
+    var myAlert = document.getElementById('liveToast');//select id of toast
+    var texto_toast = "Operação cadastrada com sucesso!";
+    document.getElementById('mensagem').innerHTML = texto_toast;
+    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+    bsAlert.show();//show it
+});
 
 $("document").ready(function (e) {
+
 });

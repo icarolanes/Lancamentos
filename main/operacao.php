@@ -5,30 +5,17 @@
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                    data-bs-target="#cad_atracacao">Nova Atracação</button>
+                    data-bs-target="#cad_operacao">Nova operação</button>
             </div>
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php 
-    $queryATR = "SELECT 
-    at.id as id, 
-    at.Datracacao as atraca,
-    at.ope1 as inicio, 
-    at.ope2 as termino, 
-    at.Ddesatracacao as desatraca,
-    sum(lanc.liquido) as ttoe,
-    count(lanc.id) as veic,
-    nav.nNome as navio 
-    FROM atracacao at 
-    join navios nav on at.navio = nav.id 
-    left join lancamentos lanc on lanc.atracacao = at.id 
-    
-    WHERE at.situacao = 1 group by at.id";
+        <?php
+    $queryATR = "call lista_operacao_old(1)";
     $prepara = $con->prepare($queryATR);
     $prepara->execute();
     while ($atracacao=$prepara->fetch()) {
-    ?>
+        ?>
         <div class="col">
             <div class="card h-100">
                 <div class="card-header">
@@ -47,7 +34,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">MV: <?php echo $atracacao['navio'];?></h5>
+                    <h5 class="card-title">MV: <?php echo $atracacao['navio']; ?></h5>
                     <table class="table table-borderless">
                         <thead>
                             <tr>
@@ -84,10 +71,11 @@
         </div>
         <?php
     }
+    $prepara->closeCursor();
     ?>
     </div>
-</main>
-
-<?php 
-include_once('Modais.html');
+<?php
+include_once('Modais.php');
 ?>
+<script src="js/listar_operacao.js"></script>
+</main>
